@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zoo.BLL", "Zoo.BLL\Zoo.BLL.csproj", "{4192D38A-F5B1-4094-A974-48BE8FF3ED6E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zoo.DAL", "Zoo.DAL\Zoo.DAL.csproj", "{167B8F36-2E7B-404E-A921-857FEBF5295B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZooUI", "Zoo.UI\ZooUI.csproj", "{C8593E80-C732-43EF-BDB5-E1EF419153F3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4192D38A-F5B1-4094-A974-48BE8FF3ED6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4192D38A-F5B1-4094-A974-48BE8FF3ED6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4192D38A-F5B1-4094-A974-48BE8FF3ED6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4192D38A-F5B1-4094-A974-48BE8FF3ED6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{167B8F36-2E7B-404E-A921-857FEBF5295B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{167B8F36-2E7B-404E-A921-857FEBF5295B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{167B8F36-2E7B-404E-A921-857FEBF5295B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{167B8F36-2E7B-404E-A921-857FEBF5295B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8593E80-C732-43EF-BDB5-E1EF419153F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8593E80-C732-43EF-BDB5-E1EF419153F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8593E80-C732-43EF-BDB5-E1EF419153F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8593E80-C732-43EF-BDB5-E1EF419153F3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

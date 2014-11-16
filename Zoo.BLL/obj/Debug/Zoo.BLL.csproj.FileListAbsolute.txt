@@ -1,0 +1,5 @@
+D:\Zoo\Zoo.BLL\bin\Debug\Zoo.BLL.dll
+D:\Zoo\Zoo.BLL\bin\Debug\Zoo.BLL.pdb
+D:\Zoo\Zoo.BLL\obj\Debug\Zoo.BLL.csprojResolveAssemblyReference.cache
+D:\Zoo\Zoo.BLL\obj\Debug\Zoo.BLL.dll
+D:\Zoo\Zoo.BLL\obj\Debug\Zoo.BLL.pdb
