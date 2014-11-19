@@ -3,31 +3,35 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
-using Zoo.DAL;
-using Zoo.DAL.Entities;
+using Zoo.DAL.Abstract;
+using Zoo.BLL.Entities;
 
 
 namespace Zoo.UI.Provider
 {
     public class ZooRoleProvider : RoleProvider
     {
-        public override string[] GetRolesForUser(string login)
+        private IRepository<User> _db;
+        private IRepository<Role> _role;
+
+        public ZooRoleProvider()
+        {
+            _db = new ZooRepository<User>();
+            _role = new ZooRepository<Role>();
+        }
+        
+   public override string[] GetRolesForUser(string login)
         {
             string[] role = new string[] { };
-
-            using (ZooDbContext _db = new ZooDbContext())
-            {
-                try
+            try
                 {
-                    // Получаем пользователя
-                    User user = (from u in _db.Users
-                                 where u.Login == login
-                                 select u).FirstOrDefault();
-                    if (user != null)
+                 // Получаем пользователя
+                 var user =  _db.GetAll.Where(u => u.Login == login).FirstOrDefault();
+                 if (user != null)
                     {
                         // получаем роль
-                        Role userRole = _db.Roles.Find(user.RoleId);
-
+                       // Role userRole = _db.Roles.Find(user.RoleId);
+                        Role userRole = _role.GetAll.Where(u => u.Id == user.RoleId).FirstOrDefault();
                         if (userRole != null)
                         {
                             role = new string[] { userRole.Name };
@@ -38,28 +42,20 @@ namespace Zoo.UI.Provider
                 {
                     role = new string[] { };
                 }
-            }
             return role;
-
         }
 
-        public override bool IsUserInRole(string username, string roleName)
+   public override bool IsUserInRole(string username, string roleName)
         {
-            bool outputResult = false;
-            // Находим пользователя
-            using (ZooDbContext _db = new ZooDbContext())
-            {
-                try
+           bool outputResult = false;
+           try
                 {
                     // Получаем пользователя
-                    User user = (from u in _db.Users
-                                 where u.Login == username
-                                 select u).FirstOrDefault();
+                    var user = _db.GetAll.Where(u => u.Login == username).FirstOrDefault();
                     if (user != null)
                     {
                         // получаем роль
-                        Role userRole = _db.Roles.Find(user.RoleId);
-
+                        Role userRole = _role.GetAll.Where(u => u.Id == user.RoleId).FirstOrDefault();
                         //сравниваем
                         if (userRole != null && userRole.Name == roleName)
                         {
@@ -71,11 +67,10 @@ namespace Zoo.UI.Provider
                 {
                     outputResult = false;
                 }
-            }
             return outputResult;
         }
 
-        #region Not implement method
+        #region Not implement methods
         public override void AddUsersToRoles(string[] usernames, string[] roleNames)
         {
             throw new NotImplementedException();

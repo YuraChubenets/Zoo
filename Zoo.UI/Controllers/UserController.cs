@@ -6,19 +6,32 @@ using System.Web.Mvc;
 using System.Data.Entity;
 using System.Data;
 using Zoo.DAL;
-using Zoo.DAL.Entities;
+using Zoo.BLL.Entities;
+using Zoo.DAL.Abstract;
 
 namespace Zoo.UI.Controllers
 {
        [Authorize(Roles = "Администратор, Руководитель, Исполнитель")]
         public class UserController : Controller
         {
-            private ZooDbContext db = new ZooDbContext();
+           IRepository<User> userRepo;
+           IRepository<Role> roleRepo;
+           IRepository<Department> depaRepo;
+
+           IRepository<Animal> animRepo;
+            public UserController()
+            {
+                this.userRepo = new ZooRepository<User>();
+                this.roleRepo = new ZooRepository<Role>();
+                this.depaRepo = new ZooRepository<Department>();
+                this.animRepo = new ZooRepository<Animal>();
+            }
 
             [HttpGet]
             public ActionResult Index()
             {
-                var users = db.Users.Include(u => u.Role).ToList();
+               
+                var users = userRepo.GetAll.Include(u => u.Role).ToList();
                 return View(users);
             }
       
@@ -26,8 +39,7 @@ namespace Zoo.UI.Controllers
             [Authorize(Roles = "Администратор")]
             public ActionResult Create()
             {
-               
-                SelectList roles = new SelectList(db.Roles, "Id", "Name");
+                SelectList roles = new SelectList(roleRepo.GetAll, "Id", "Name");
                 ViewBag.Roles = roles;
                 return View();
             }
@@ -38,22 +50,21 @@ namespace Zoo.UI.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    db.Users.Add(user);
-                    db.SaveChanges();
+                   userRepo.Create(user);
                     return RedirectToAction("Index");
                 }
-               
-                SelectList roles = new SelectList(db.Roles, "Id", "Name");
+
+                SelectList roles = new SelectList(roleRepo.GetAll, "Id", "Name");
                 ViewBag.Roles = roles;
-               return View(user);
+                return View(user);
             }
 
             [HttpGet]
             [Authorize(Roles = "Администратор")]
             public ActionResult Edit(int id)
             {
-                User user = db.Users.Find(id);
-                SelectList roles = new SelectList(db.Roles, "Id", "Name", user.RoleId);
+                var user = userRepo.GetOne(id);
+                SelectList roles = new SelectList(roleRepo.GetAll, "Id", "Name", user.RoleId);
                 ViewBag.Roles = roles;
                 return View(user);
             }
@@ -64,25 +75,21 @@ namespace Zoo.UI.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    db.Entry(user).State = EntityState.Modified;
-                    db.SaveChanges();
+                    userRepo.Update(user);
                     return RedirectToAction("Index");
                 }
 
-                SelectList departments = new SelectList(db.Departments, "Id", "Name");
+                SelectList departments = new SelectList(depaRepo.GetAll, "Id", "Name");
                 ViewBag.Departments = departments;
-                SelectList roles = new SelectList(db.Roles, "Id", "Name");
+                SelectList roles = new SelectList(roleRepo.GetAll, "Id", "Name");
                 ViewBag.Roles = roles;
-
                 return View(user);
             }
 
             [Authorize(Roles = "Администратор")]
             public ActionResult Delete(int id)
             {
-                User user = db.Users.Find(id);
-                db.Users.Remove(user);
-                db.SaveChanges();
+                userRepo.Delete(id);
                 return RedirectToAction("Index");
             }
 

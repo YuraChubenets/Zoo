@@ -10,8 +10,8 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
-    <fieldset>
-        <legend>User</legend>
+   <fieldset>
+        <legend>Новый пользователь</legend>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Name)
@@ -41,12 +41,12 @@
             @Html.LabelFor(model => model.RoleId)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.RoleId)
+            @Html.DropDownListFor(model => model.RoleId, ViewBag.Roles as SelectList )
             @Html.ValidationMessageFor(model => model.RoleId)
         </div>
 
         <p>
-            <input type="submit" value="Create" />
+            <input type="submit" value="Добавить" />
         </p>
     </fieldset>
 }

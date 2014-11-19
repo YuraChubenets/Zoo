@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Zoo.DAL.Entities.User>
+﻿@model IEnumerable<Zoo.BLL.Entities.User>
 
 @{
     ViewBag.Title = "Index";
@@ -8,7 +8,7 @@
 
 <h2>Список пользователей</h2>
 
-<table>
+<table class="table"  >
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Name)

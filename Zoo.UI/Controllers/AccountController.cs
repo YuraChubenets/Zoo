@@ -3,16 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Zoo.DAL;
+using Zoo.BLL;
 using Zoo.UI.Models;
-using Zoo.DAL.Entities;
+using Zoo.BLL.Entities;
 using System.Web.Security;
+using Zoo.DAL.Abstract;
 
 namespace Zoo.UI.Controllers
 {
         [AllowAnonymous]
         public class AccountController : Controller
         {
+            IRepository<User> userRepo;
+            public AccountController()
+            {
+                this.userRepo = new ZooRepository<User>();
+            }
+
             public ActionResult Login()
             {
                 return View();
@@ -46,38 +53,29 @@ namespace Zoo.UI.Controllers
             public ActionResult LogOff()
             {
                 FormsAuthentication.SignOut();
-
                 return RedirectToAction("Login", "Account");
             }
 
             private bool ValidateUser(string login, string password)
             {
                 bool isValid = false;
-
-                using (ZooDbContext _db = new ZooDbContext())
-                {
                     try
                     {
-                        User user = (from u in _db.Users
-                                     where u.Login == login && u.Password == password
-                                     select u).FirstOrDefault();
-                        
-                        List<User> uu = _db.Users.ToList();
-
-                        var dd = _db.Users.AsEnumerable().Select(h => h);
+                        var  user = userRepo.GetAll.Where(u => u.Login == login && u.Password==password ).FirstOrDefault();
 
                         if (user != null)
                         {
                             isValid = true;
                         }
                     }
-                    catch
+                    catch(Exception ex)
                     {
                         isValid = false;
+                        ModelState.AddModelError("", "Поризошла ошибка-"+ex);
                     }
-                }
                 return isValid;
             }
+
         }
 
     }

@@ -62,13 +62,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\IRepository.cs" />
+    <Compile Include="Abstract\ZooRepository.cs" />
     <Compile Include="ZooDbContext.cs" />
-    <Compile Include="ConCreate\SQLRepositiry.cs" />
-    <Compile Include="Entities\Animal.cs" />
-    <Compile Include="Entities\Department.cs" />
-    <Compile Include="Entities\Gender.cs" />
-    <Compile Include="Entities\Role.cs" />
-    <Compile Include="Entities\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -96,6 +91,12 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Zoo.BLL\Zoo.BLL.csproj">
+      <Project>{4192d38a-f5b1-4094-a974-48be8ff3ed6e}</Project>
+      <Name>Zoo.BLL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
