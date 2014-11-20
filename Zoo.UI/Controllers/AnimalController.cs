@@ -11,12 +11,12 @@ using Zoo.DAL.Abstract;
 
 namespace Zoo.UI.Controllers
 {
+    [Authorize(Roles = "Администратор, Руководитель, Исполнитель")]
     public class AnimalController : Controller
     {
         //
         // GET: /Animal/
         IRepository<Animal> animalRepo;
-
         public AnimalController()
         {
              this.animalRepo =  new ZooRepository<Animal>();
@@ -24,7 +24,7 @@ namespace Zoo.UI.Controllers
 
         public ActionResult Index()
         {
-            var anim = animalRepo.GetAll.Include(p => p.Gender).Include(p => p.Department).Include(p => p.User).Include(p => p.Feeding).ToList();
+            var anim = animalRepo.GetAll.Include(p => p.Gender).Include(p => p.Department).Include(p => p.User).Include(p => p.Feeding).Include(t=> t.Lifecycles).ToList();
             return View(anim);
         }
 

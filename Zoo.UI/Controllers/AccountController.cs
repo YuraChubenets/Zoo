@@ -39,7 +39,7 @@ namespace Zoo.UI.Controllers
                         }
                         else
                         {
-                            return RedirectToAction("Index", "Request");
+                            return RedirectToAction("Index", "Animal");
                         }
                     }
                     else

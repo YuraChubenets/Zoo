@@ -48,3 +48,5 @@ C:\Users\Юрий\Desktop\Zoo_v4\Zoo.DAL\obj\Debug\Zoo.DAL.dll
 C:\Users\Юрий\Desktop\Zoo_v4\Zoo.DAL\obj\Debug\Zoo.DAL.pdb
 C:\Users\Юрий\Desktop\Zoo_v4\Zoo.DAL\bin\Debug\Zoo.BLL.dll
 C:\Users\Юрий\Desktop\Zoo_v4\Zoo.DAL\bin\Debug\Zoo.BLL.pdb
+C:\Users\chubenets\Desktop\Zoo-feature-layerDAL\Zoo.DAL\bin\Debug\Zoo.BLL.dll
+C:\Users\chubenets\Desktop\Zoo-feature-layerDAL\Zoo.DAL\bin\Debug\Zoo.BLL.pdb

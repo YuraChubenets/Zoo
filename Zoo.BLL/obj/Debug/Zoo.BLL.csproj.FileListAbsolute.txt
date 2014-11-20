@@ -25,3 +25,10 @@ C:\Users\Юрий\Desktop\Zoo_v4\Zoo.BLL\bin\Debug\EntityFramework.xml
 C:\Users\Юрий\Desktop\Zoo_v4\Zoo.BLL\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\Юрий\Desktop\Zoo_v4\Zoo.BLL\bin\Debug\ru\EntityFramework.resources.dll
 C:\Users\Юрий\Desktop\Zoo_v4\Zoo.BLL\bin\Debug\ru\EntityFramework.SqlServer.resources.dll
+C:\Users\chubenets\Desktop\Zoo-feature-layerDAL\Zoo.BLL\bin\Debug\Zoo.BLL.dll.config
+C:\Users\chubenets\Desktop\Zoo-feature-layerDAL\Zoo.BLL\bin\Debug\EntityFramework.dll
+C:\Users\chubenets\Desktop\Zoo-feature-layerDAL\Zoo.BLL\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\chubenets\Desktop\Zoo-feature-layerDAL\Zoo.BLL\bin\Debug\EntityFramework.xml
+C:\Users\chubenets\Desktop\Zoo-feature-layerDAL\Zoo.BLL\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\chubenets\Desktop\Zoo-feature-layerDAL\Zoo.BLL\bin\Debug\ru\EntityFramework.resources.dll
+C:\Users\chubenets\Desktop\Zoo-feature-layerDAL\Zoo.BLL\bin\Debug\ru\EntityFramework.SqlServer.resources.dll

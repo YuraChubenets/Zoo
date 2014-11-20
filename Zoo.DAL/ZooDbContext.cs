@@ -26,7 +26,8 @@ namespace Zoo.DAL
         public DbSet<User> Users { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Gender> Genders { get; set; }
-        public DbSet<Feeding> Feeding { get; set; }   
+        public DbSet<Feeding> Feeding { get; set; }
+        public DbSet<Lifecycle> Lifecycles { get; set; }
     }
 }
 

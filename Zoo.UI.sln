@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zoo.BLL", "Zoo.BLL\Zoo.BLL.csproj", "{4192D38A-F5B1-4094-A974-48BE8FF3ED6E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zoo.DAL", "Zoo.DAL\Zoo.DAL.csproj", "{167B8F36-2E7B-404E-A921-857FEBF5295B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZooUI", "Zoo.UI\ZooUI.csproj", "{C8593E80-C732-43EF-BDB5-E1EF419153F3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZooWebUI", "Zoo.UI\ZooWebUI.csproj", "{C8593E80-C732-43EF-BDB5-E1EF419153F3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

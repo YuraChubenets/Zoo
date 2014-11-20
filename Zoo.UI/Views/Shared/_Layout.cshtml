@@ -8,9 +8,34 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
+    <!-- В зависимости от роли пользователя устанавливаем определенное меню -->
+    @if (ViewContext.HttpContext.User.IsInRole("Администратор"))
+    {
+        <h2>Меню администратора: вы вошли как admin</h2>
+        <div class="menu">
+                @Html.ActionLink("Пользователи", "Index", "User")
+                @Html.ActionLink("Выйти", "LogOff", "Account")
+        </div>
+    }
+    else if (ViewContext.HttpContext.User.IsInRole("Руководитель"))
+    {
+        <div class ="menu">
+            @Html.ActionLink("Пользователи", "Index", "User")
+            @Html.ActionLink("Выйти", "LogOff", "Account")
+        </div>
+    }
+    else if (ViewContext.HttpContext.User.IsInRole("Исполнитель"))
+    {   <h2>Приветствую, @ViewContext.HttpContext.User.Identity.Name</h2>
+        <div class="menu">
+            @Html.ActionLink("Выйти", "LogOff", "Account")
+        </div>
+    }
+  
     @RenderBody()
 
     @Scripts.Render("~/bundles/jquery")
+    @Styles.Render("~/Content/themes/base/css")
+    @Scripts.Render("~/bundles/jqueryui")
     @RenderSection("scripts", required: false)
 </body>
 </html>
