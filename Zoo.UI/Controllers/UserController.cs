@@ -17,8 +17,8 @@ namespace Zoo.UI.Controllers
            IRepository<User> userRepo;
            IRepository<Role> roleRepo;
            IRepository<Department> depaRepo;
-
            IRepository<Animal> animRepo;
+
             public UserController()
             {
                 this.userRepo = new ZooRepository<User>();
@@ -30,7 +30,6 @@ namespace Zoo.UI.Controllers
             [HttpGet]
             public ActionResult Index()
             {
-               
                 var users = userRepo.GetAll.Include(u => u.Role).ToList();
                 return View(users);
             }
@@ -92,7 +91,5 @@ namespace Zoo.UI.Controllers
                 userRepo.Delete(id);
                 return RedirectToAction("Index");
             }
-
-
         }
     }

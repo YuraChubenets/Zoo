@@ -237,6 +237,11 @@
     <Content Include="Views\User\Create.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\Animal\Index.cshtml" />
+    <Content Include="Views\Animal\GetAnimals.cshtml" />
+    <Content Include="Views\Animal\_Create.cshtml" />
+    <Content Include="Views\Animal\_Details.cshtml" />
+    <Content Include="Views\Animal\_Edit.cshtml" />
+    <Content Include="Views\Animal\_Delete.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -5,7 +5,7 @@ using Zoo.BLL.Entities;
 
 namespace Zoo.DAL
 {
-    class ZooDbContext : DbContext
+   class ZooDbContext : DbContext
     {
         private ZooDbContext()
             : base("DefaultConnection") 
@@ -13,7 +13,6 @@ namespace Zoo.DAL
            
         }
         private static ZooDbContext instance = new ZooDbContext();
-
         public static ZooDbContext Instance
         {
             get
@@ -21,6 +20,7 @@ namespace Zoo.DAL
                 return instance;
             }
         }
+
         public DbSet<Animal> Animals { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<User> Users { get; set; }

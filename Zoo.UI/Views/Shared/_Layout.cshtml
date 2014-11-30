@@ -30,8 +30,10 @@
             @Html.ActionLink("Выйти", "LogOff", "Account")
         </div>
     }
-  
-    @RenderBody()
+  <div  class="main-content">
+      @RenderBody()
+  </div>
+   
 
     @Scripts.Render("~/bundles/jquery")
     @Styles.Render("~/Content/themes/base/css")

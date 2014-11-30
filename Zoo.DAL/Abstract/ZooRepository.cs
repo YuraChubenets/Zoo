@@ -8,7 +8,9 @@ namespace Zoo.DAL.Abstract
 {
    public  class ZooRepository<T> : IRepository<T>  where T : class ,new () 
     {
+       //singleton
        private readonly ZooDbContext context = ZooDbContext.Instance;
+
        public IQueryable<T> GetAll
        {
            get
@@ -35,7 +37,7 @@ namespace Zoo.DAL.Abstract
                }
                else
                {
-                   throw new NotSupportedException("This type is not supported");
+                   throw new NotSupportedException("/b This type is not supported");
                }
 
            }
@@ -72,25 +74,5 @@ namespace Zoo.DAL.Abstract
                 this.context.Set<T>().Remove(user);
             this.context.SaveChanges();
         }
-
-        private bool disposed = false;
-        public virtual void Dispose(bool disposing)
-        {
-            if (!this.disposed)
-            {
-                if (disposing)
-                {
-                    this.context.Dispose();
-                }
-            }
-            this.disposed = true;
-        }
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-
     }
 }

@@ -4,8 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
-using System.Data;
-using Zoo.DAL;
 using Zoo.BLL.Entities;
 using Zoo.DAL.Abstract;
 
@@ -24,95 +22,116 @@ namespace Zoo.UI.Controllers
 
         public ActionResult Index()
         {
-            var anim = animalRepo.GetAll.Include(p => p.Gender).Include(p => p.Department).Include(p => p.User).Include(p => p.Feeding).Include(t=> t.Lifecycles).ToList();
-            return View(anim);
+            var animals = animalRepo.GetAll
+                .Include(p => p.Gender)
+                .Include(p => p.Department)
+                .Include(p => p.User)
+                .Include(p => p.Feeding)
+                .Include(t => t.Lifecycles)
+                .ToList();
+            return View(animals);
         }
+
+
+        public ActionResult GetAnimals(string date)
+        {
+            if (date != null)
+            {
+                var animals = animalRepo.GetAll
+                    .Include(p => p.Gender)
+                    .Include(p => p.Department)
+                    .Include(p => p.User)
+                    .Include(p => p.Feeding)
+                    .Include(t => t.Lifecycles)
+                    .AsEnumerable()
+                    .Where(u => (((DateTime.Parse(date) - u.Lifecycles.EnteredOrBorn).Days % u.NumberFeeding) == 0));
+                return PartialView(animals);
+            }
+            return null;
+        }
+
 
         //
         // GET: /Animal/Details/5
 
         public ActionResult Details(int id)
         {
-
-            return View();
+            var anim = animalRepo.GetOne(id);
+            if (anim == null)
+            {
+                return View("Error");
+            }
+            return PartialView("_Details",anim);
         }
 
-        //
         // GET: /Animal/Create
-
         public ActionResult Create()
         {
-            return View();
+            //ViewBag.Id_Login = new SelectList(db.Logins, "Id", "Login1", catalogfilm.Id_Login);
+            return PartialView("_Create");
         }
 
         //
         // POST: /Animal/Create
-
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(Animal anim)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
-
+                animalRepo.Create(anim);
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            //ViewBag.Id_Login = new SelectList(db.Logins, "Id", "Login1", catalogfilm.Id_Login);
+            return PartialView("_Create");
         }
-
-        //
+       
+        
         // GET: /Animal/Edit/5
 
+        [HttpPost] 
+        [ValidateAntiForgeryToken]
         public ActionResult Edit(int id)
         {
-            return View();
+            var anim = animalRepo.GetOne(id);
+            if (ModelState.IsValid)
+            {
+                animalRepo.Update(anim);
+                return RedirectToAction("Index","Animal");
+            }
+            return PartialView("_Edit");
         }
 
-        //
-        // POST: /Animal/Edit/5
+    
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, FormCollection collection)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
 
-                return RedirectToAction("Index");
+                 animalRepo.Update(animalRepo.GetOne(id));
+                return PartialView("GetAnimals");
             }
-            catch
-            {
-                return View();
-            }
+            return null;
         }
-
-        //
-        // GET: /Animal/Delete/5
-
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int id=0)
         {
-            return View();
+          var anim= animalRepo.GetOne(id);
+          if (anim == null)
+          {
+              return PartialView("Error");
+          }
+            return  PartialView("_Delete");
         }
-
-        //
         // POST: /Animal/Delete/5
-
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, FormCollection collection)
         {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+          animalRepo.Delete(id);
+          return PartialView("_GetAnimals");
         }
     }
 }
