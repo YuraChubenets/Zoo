@@ -17,36 +17,42 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", null, new { @class = "navbar-brand" })
+                @Html.ActionLink("Application name", "Index", "Animal", null, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav nav-pills">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Animal")</li>
+                    <li>@Html.ActionLink("About", "AllAnimal", "Animal")</li>
+                    <li>@Html.ActionLink("Contact", "Index", "Animal")</li>
+                </ul>
+                <ul class=" nav  navbar-nav  pull-right ">
                     <li>
                         @if (ViewContext.HttpContext.User.IsInRole("Администратор"))
                         {
-                            @Html.ActionLink("Пользователи", "Index", "User")                            
+                            @Html.ActionLink("Пользователи", "Index", "User")
                         }
                         else if (ViewContext.HttpContext.User.IsInRole("Руководитель"))
                         {
-                            @Html.ActionLink("Пользователи", "Index", "User")                           
+                            @Html.ActionLink("Пользователи", "Index", "User")
                         }
-                      
+                        
                     </li>
-                    <li> @Html.ActionLink("Выйти", "LogOff", "Account")</li>
-                </ul>
+                    <li>@Html.ActionLink("Выйти", "LogOff", "Account") </li>
+
+                    <li>
+                        @using (Ajax.BeginForm("GetAnimals", "Animal", new AjaxOptions { UpdateTargetId = "tableAnimals" }))
+                        {
+                            <input type="text" class=" navbar-text  form-group" placeholder=" search" />
+                        }
+                    </li>                    
+                </ul>              
             </div>
         </div>
     </div>
-    
-
-
     <div class="container body-content">
-         @RenderBody()
-
-       
+        <div class="container">
+            @RenderBody()
+        </div>
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year – приложение ASP.NET</p>

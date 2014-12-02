@@ -22,12 +22,13 @@ namespace Zoo.WebUI.Controllers
         public ActionResult Index()
         {
             var animals = animalRepo.GetAll
-                .Include(p => p.Gender)
-                .Include(p => p.Department)
-                .Include(p => p.User)
-                .Include(p => p.Feeding)
-                .Include(t => t.Lifecycles)
-                .ToList();
+                    .Include(p => p.Gender)
+                    .Include(p => p.Department)
+                    .Include(p => p.User)
+                    .Include(p => p.Feeding)
+                    .Include(t => t.Lifecycles)
+                    .AsEnumerable()
+                    .Where(u => (((DateTime.UtcNow - u.Lifecycles.EnteredOrBorn).Days % u.Feeding.Count) == 0));
             return View(animals);
         }
 
@@ -43,7 +44,7 @@ namespace Zoo.WebUI.Controllers
                     .Include(p => p.Feeding)
                     .Include(t => t.Lifecycles)
                     .AsEnumerable()
-                    .Where(u => (((DateTime.Parse(date) - u.Lifecycles.EnteredOrBorn).Days % u.NumberFeeding) == 0));
+                    .Where(u => (((DateTime.Parse(date) - u.Lifecycles.EnteredOrBorn).Days % u.Feeding.Count) == 0));
                 return PartialView(animals);
             }
             return null;
