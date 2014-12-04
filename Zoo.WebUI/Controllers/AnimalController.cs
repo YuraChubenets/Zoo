@@ -14,6 +14,11 @@ namespace Zoo.WebUI.Controllers
     {
         // GET: /Animal/
         IRepository<Animal> animalRepo;
+        public AnimalController(  IRepository<Animal> a)
+        {
+            animalRepo = a;
+        }
+
         public AnimalController()
         {
              this.animalRepo =  new ZooRepository<Animal>();
@@ -106,29 +111,30 @@ namespace Zoo.WebUI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id)
         {
             if (ModelState.IsValid)
             {
 
                  animalRepo.Update(animalRepo.GetOne(id));
-                return PartialView("GetAnimals");
+                return PartialView("_GetAnimals");
             }
             return null;
         }
+
         public ActionResult Delete(int id=0)
         {
           var anim= animalRepo.GetOne(id);
           if (anim == null)
           {
-              return PartialView("Error");
+              return View("Error");
           }
             return  PartialView("_Delete");
         }
         // POST: /Animal/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id)
         {
           animalRepo.Delete(id);
           return PartialView("_GetAnimals");

@@ -19,7 +19,24 @@ namespace Zoo.WebUI.Controllers
            IRepository<Department> depaRepo;
            IRepository<Animal> animRepo;
 
-            public UserController()
+           public UserController(IRepository<User> u)
+           {
+               userRepo = u;
+           }
+           public UserController(IRepository<Role> r)
+           {
+               roleRepo = r;
+           }
+           public UserController(IRepository<Department> d)
+           {
+               depaRepo = d;
+           }
+           public UserController(IRepository<Animal> a)
+           {
+               animRepo = a;
+           } 
+           
+           public UserController()
             {
                 this.userRepo = new ZooRepository<User>();
                 this.roleRepo = new ZooRepository<Role>();

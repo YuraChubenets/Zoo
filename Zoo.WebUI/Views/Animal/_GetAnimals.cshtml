@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Zoo.BLL.Entities.Animal>
+
+
+
+    @{
+        var grid = new WebGrid(Model,
+            rowsPerPage: 10, 
+            defaultSort: "Name",            
+            columnNames: new[] { "Name", "KindOfAnimal", "Gender", "Department", "NumberFeeding","DiscriptionFeed", "Feeding" , "Lifecycles" , "User" }
+            );
+        
+        
+    }
+
+@grid.GetHtml(
+
+
+fillEmptyRows: false, 
+mode: WebGridPagerModes.All,
+columns: grid.Columns(
+grid.Column(id,"id"),
+
+))
+
+@if (HttpContext.Current.User.IsInRole("Руководитель"))
+{ }
