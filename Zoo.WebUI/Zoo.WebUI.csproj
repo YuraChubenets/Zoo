@@ -125,7 +125,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\helpers.cs" />
     <Compile Include="Models\LogViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Provider\ZooRoleProvider.cs" />
@@ -287,11 +286,11 @@
     <Content Include="Views\Animal\_Delete.cshtml" />
     <Content Include="Views\Animal\_Details.cshtml" />
     <Content Include="Views\Animal\_Edit.cshtml" />
-    <Content Include="Views\Animal\_GetAnimals.cshtml" />
     <Content Include="Views\Animal\Index.cshtml" />
     <Content Include="Views\User\Create.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Animal\_GetAnimals.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

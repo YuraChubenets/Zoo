@@ -4,18 +4,12 @@
 <h2>Zoo-Kiev</h2>
 
 <div class="row text-center">
-    <div class="col-lg-6 col-sm-6 col-md-6  col-lg-offset-1">
-        @Html.Partial("GetAnimals")
+    <div id="GridDiv" class="col-lg-6 col-sm-6 col-md-6  col-lg-offset-1">
+        @Html.Partial("_GetAnimals")
     </div>
 
     <div class="col-lg-1 col-sm-1">
-    
-    @if (HttpContext.Current.User.IsInRole("Руководитель"))
-     {
-        <button class="btn-info">
-            @Html.ActionLink("Create New", "Create")
-        </button>
-       }
+   
     </div>
 
    <div class="col-lg-4 col-sm-4 col-md-4  col-xs-4 " id="datepicker"></div>
@@ -64,7 +58,7 @@
                 url: "/Animal/GetAnimals",
                 data: { "date": dateText },
                 success: function (data) {
-                    $("#tableAnimals").html(data);
+                    ("#tableAnimals").html(data);
                 }
             });
         }

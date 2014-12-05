@@ -50,7 +50,7 @@ namespace Zoo.WebUI.Controllers
                     .Include(t => t.Lifecycles)
                     .AsEnumerable()
                     .Where(u => (((DateTime.Parse(date) - u.Lifecycles.EnteredOrBorn).Days % u.Feeding.Count) == 0));
-                return PartialView(animals);
+                return PartialView("_GetAnimals", animals);
             }
             return null;
         }
@@ -111,7 +111,7 @@ namespace Zoo.WebUI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int id, FormCollection form)
         {
             if (ModelState.IsValid)
             {
@@ -134,7 +134,7 @@ namespace Zoo.WebUI.Controllers
         // POST: /Animal/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int id, FormCollection form)
         {
           animalRepo.Delete(id);
           return PartialView("_GetAnimals");

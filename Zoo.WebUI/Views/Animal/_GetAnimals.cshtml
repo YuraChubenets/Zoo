@@ -1,26 +1,52 @@
 ﻿@model IEnumerable<Zoo.BLL.Entities.Animal>
 
-
-
-    @{
+@{
         var grid = new WebGrid(Model,
-            rowsPerPage: 10, 
-            defaultSort: "Name",            
-            columnNames: new[] { "Name", "KindOfAnimal", "Gender", "Department", "NumberFeeding","DiscriptionFeed", "Feeding" , "Lifecycles" , "User" }
-            );
-        
-        
-    }
+            rowsPerPage: 10,
+            defaultSort: "KindOfAnimal",
+            columnNames: new[] {  "KindOfAnimal", "Gender", 
+                                  "Department", "NumberFeeding",
+                                  "DiscriptionFeed", "Feeding" , 
+                                  "Lifecycles" , "User" });
+}
+
+@if (HttpContext.Current.User.IsInRole("Руководитель"))
+{
+@grid.GetHtml(
+ 
+fillEmptyRows: false,
+mode: WebGridPagerModes.All,
+
+
+columns: grid.Columns
+(
+    grid.Column("KindOfAnimal", header: "KindOfAnimal"),
+    grid.Column("Gender", header: "Gender"),
+    grid.Column("Department", header: "Department"),
+    grid.Column("NumberFeeding", header: "NumberFeeding"),
+    grid.Column("DiscriptionFeed", header: "DiscriptionFeed"),
+    grid.Column("Feeding", header: "Feeding"),
+    grid.Column("Lifecycles", header: "Lifecycles"),
+    grid.Column("User", header: "User")
+))}
+else{ 
 
 @grid.GetHtml(
 
+        htmlAttributes: new { id = "tableAnimals" },
+  tableStyle: "table table-striped table-hover",   
+  fillEmptyRows: false,
+  mode: WebGridPagerModes.All,
 
-fillEmptyRows: false, 
-mode: WebGridPagerModes.All,
-columns: grid.Columns(
-grid.Column(id,"id"),
 
+columns: grid.Columns
+(
+        grid.Column("KindOfAnimal", header: "KindOfAnimal" ),
+        grid.Column("Gender.Name", header: "Gender" ),
+        grid.Column("Department.Name", header: "Department" ),
+        grid.Column("NumberFeeding", header: "NumberFeeding"),
+        grid.Column("DiscriptionFeed", header: "DiscriptionFeed"),
+        grid.Column("Feeding.NameFeeding", header: "Feeding"),
+        grid.Column("Lifecycles.EnteredOrBorn", header: "Lifecycles",  format:(item)=>String.Format("{0:dd-MM-yyy}", item.Lifecycles.EnteredOrBorn))
 ))
-
-@if (HttpContext.Current.User.IsInRole("Руководитель"))
-{ }
+}
