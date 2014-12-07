@@ -35,6 +35,14 @@ namespace Zoo.DAL.Abstract
                {
                    return this.context.Users as IQueryable<T>;
                }
+               else if (typeof(T) == typeof(Feeding))
+               {
+                   return this.context.Feeding as IQueryable<T>;
+               }
+               else if (typeof(T) == typeof(Lifecycle))
+               {
+                   return this.context.Lifecycles as IQueryable<T>;
+               }
                else
                {
                    throw new NotSupportedException("/b This type is not supported");

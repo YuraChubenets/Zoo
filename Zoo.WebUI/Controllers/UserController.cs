@@ -16,7 +16,6 @@ namespace Zoo.WebUI.Controllers
         {
            IRepository<User> userRepo;
            IRepository<Role> roleRepo;
-           IRepository<Department> depaRepo;
            IRepository<Animal> animRepo;
 
            public UserController(IRepository<User> u)
@@ -26,11 +25,7 @@ namespace Zoo.WebUI.Controllers
            public UserController(IRepository<Role> r)
            {
                roleRepo = r;
-           }
-           public UserController(IRepository<Department> d)
-           {
-               depaRepo = d;
-           }
+           }  
            public UserController(IRepository<Animal> a)
            {
                animRepo = a;
@@ -40,7 +35,6 @@ namespace Zoo.WebUI.Controllers
             {
                 this.userRepo = new ZooRepository<User>();
                 this.roleRepo = new ZooRepository<Role>();
-                this.depaRepo = new ZooRepository<Department>();
                 this.animRepo = new ZooRepository<Animal>();
             }
 
@@ -95,8 +89,7 @@ namespace Zoo.WebUI.Controllers
                     return RedirectToAction("Index");
                 }
 
-                SelectList departments = new SelectList(depaRepo.GetAll, "Id", "Name");
-                ViewBag.Departments = departments;
+ 
                 SelectList roles = new SelectList(roleRepo.GetAll, "Id", "Name");
                 ViewBag.Roles = roles;
                 return View(user);

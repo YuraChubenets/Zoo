@@ -17,13 +17,26 @@ namespace Zoo.WebUI.Controllers
     {
         // GET: /Animal/
         IRepository<Animal> animalRepo;
+        IRepository<Gender> genderRepo;
+        IRepository<Department> depatrtRepo;
+        IRepository<User> userRepo;
+        IRepository<Feeding> feedingRepo;
+        IRepository<Lifecycle> lifecycleRepo;
+
+
+
         public AnimalController(  IRepository<Animal> a)
         {
             animalRepo = a;
         }
         public AnimalController()
         {
-             this.animalRepo =  new ZooRepository<Animal>();
+            this.depatrtRepo = new ZooRepository<Department>(); 
+            this.animalRepo =  new ZooRepository<Animal>();
+            this.genderRepo = new ZooRepository<Gender>();
+            this.userRepo = new ZooRepository<User>();
+            this.feedingRepo = new ZooRepository<Feeding>();
+            this.lifecycleRepo = new ZooRepository<Lifecycle>();
         }
 
         public ActionResult Index()
@@ -83,7 +96,14 @@ namespace Zoo.WebUI.Controllers
         // GET: /Animal/Create
         public ActionResult Create()
         {
-            //ViewBag.Id_Login = new SelectList(db.Logins, "Id", "Login1", catalogfilm.Id_Login);
+            ViewBag.Genders = new SelectList(genderRepo.GetAll, "Id", "Name");
+            ViewBag.Departments = new SelectList(depatrtRepo.GetAll, "Id", "Name");
+            ViewBag.Users = new SelectList(userRepo.GetAll, "Id", "Name");
+            ViewBag.Feedings = new SelectList(feedingRepo.GetAll, "Id", "NameFeeding");
+            ViewBag.Lifecycles = new SelectList(lifecycleRepo.GetAll, "Id", "EnteredOrBorn",);
+
+           // ViewBag.Id_Login = new SelectList(db.Logins, "Id", "Login1", catalogfilm.Id_Login);
+
             return PartialView("_Create");
         }
 
@@ -97,7 +117,6 @@ namespace Zoo.WebUI.Controllers
                 animalRepo.Create(anim);
                 return RedirectToAction("Index");
             }
-            //ViewBag.Id_Login = new SelectList(db.Logins, "Id", "Login1", catalogfilm.Id_Login);
             return View("Index");
         }
        
