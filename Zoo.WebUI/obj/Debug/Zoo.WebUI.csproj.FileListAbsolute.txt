@@ -29,10 +29,7 @@ D:\Zoo\Zoo.WebUI\bin\System.Web.WebPages.Deployment.xml
 D:\Zoo\Zoo.WebUI\bin\System.Web.WebPages.Razor.xml
 D:\Zoo\Zoo.WebUI\bin\Antlr3.Runtime.pdb
 D:\Zoo\Zoo.WebUI\bin\Newtonsoft.Json.xml
-D:\Zoo\Zoo.WebUI\bin\ru\EntityFramework.resources.dll
-D:\Zoo\Zoo.WebUI\bin\ru\EntityFramework.SqlServer.resources.dll
 D:\Zoo\Zoo.WebUI\bin\ru\System.Web.Helpers.resources.dll
-D:\Zoo\Zoo.WebUI\bin\ru\System.Web.Mvc.resources.dll
 D:\Zoo\Zoo.WebUI\bin\ru\System.Web.Optimization.resources.dll
 D:\Zoo\Zoo.WebUI\bin\ru\System.Web.Razor.resources.dll
 D:\Zoo\Zoo.WebUI\bin\ru\System.Web.WebPages.resources.dll
@@ -41,3 +38,7 @@ D:\Zoo\Zoo.WebUI\bin\ru\System.Web.WebPages.Razor.resources.dll
 D:\Zoo\Zoo.WebUI\obj\Debug\Zoo.WebUI.csprojResolveAssemblyReference.cache
 D:\Zoo\Zoo.WebUI\obj\Debug\Zoo.WebUI.dll
 D:\Zoo\Zoo.WebUI\obj\Debug\Zoo.WebUI.pdb
+D:\Zoo\Zoo.WebUI\bin\PagedList.dll
+D:\Zoo\Zoo.WebUI\bin\PagedList.Mvc.dll
+D:\Zoo\Zoo.WebUI\bin\PagedList.xml
+D:\Zoo\Zoo.WebUI\bin\PagedList.Mvc.xml

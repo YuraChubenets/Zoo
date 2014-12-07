@@ -6,6 +6,9 @@ using System.Web.Mvc;
 using System.Data.Entity;
 using Zoo.BLL.Entities;
 using Zoo.DAL.Abstract;
+using Zoo.WebUI.Models;
+using PagedList.Mvc;
+using PagedList;
 
 namespace Zoo.WebUI.Controllers
 {
@@ -18,7 +21,6 @@ namespace Zoo.WebUI.Controllers
         {
             animalRepo = a;
         }
-
         public AnimalController()
         {
              this.animalRepo =  new ZooRepository<Animal>();
@@ -50,23 +52,32 @@ namespace Zoo.WebUI.Controllers
                     .Include(t => t.Lifecycles)
                     .AsEnumerable()
                     .Where(u => (((DateTime.Parse(date) - u.Lifecycles.EnteredOrBorn).Days % u.Feeding.Count) == 0));
+             
                 return PartialView("_GetAnimals", animals);
             }
-            return null;
+            return View("Index");
         }
 
+        public ActionResult AllAnimals(int? page)
+        {
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            var animals = animalRepo.GetAll.ToList();
 
-        //
+            return View(animals.ToPagedList(pageNumber, pageSize));
+
+        }
+     
         // GET: /Animal/Details/5
 
         public ActionResult Details(int id)
         {
             var anim = animalRepo.GetOne(id);
-            if (anim == null)
+            if (anim != null)
             {
-                return View("Error");
+                return PartialView("_Details", anim);
             }
-            return PartialView("_Details",anim);
+            return View("Index");
         }
 
         // GET: /Animal/Create
@@ -76,7 +87,6 @@ namespace Zoo.WebUI.Controllers
             return PartialView("_Create");
         }
 
-        //
         // POST: /Animal/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -88,48 +98,38 @@ namespace Zoo.WebUI.Controllers
                 return RedirectToAction("Index");
             }
             //ViewBag.Id_Login = new SelectList(db.Logins, "Id", "Login1", catalogfilm.Id_Login);
-            return PartialView("_Create");
+            return View("Index");
         }
        
         
         // GET: /Animal/Edit/5
 
-        [HttpPost] 
-        [ValidateAntiForgeryToken]
         public ActionResult Edit(int id)
         {
             var anim = animalRepo.GetOne(id);
-            if (ModelState.IsValid)
+            if (anim!=null)
             {
-                animalRepo.Update(anim);
-                return RedirectToAction("Index","Animal");
+                return PartialView("_Edit",anim);
             }
-            return PartialView("_Edit");
+            return View("Index");
         }
-
-    
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, FormCollection form)
+        public ActionResult Edit(Animal anim)
         {
-            if (ModelState.IsValid)
-            {
-
-                 animalRepo.Update(animalRepo.GetOne(id));
-                return PartialView("_GetAnimals");
-            }
-            return null;
+                 animalRepo.Update(anim);
+                 return RedirectToAction("Index", "Animal");
         }
 
-        public ActionResult Delete(int id=0)
+        public ActionResult Delete(int id)
         {
           var anim= animalRepo.GetOne(id);
-          if (anim == null)
+          if (anim != null)
           {
-              return View("Error");
+              return  PartialView("_Delete", anim);
           }
-            return  PartialView("_Delete");
+            return View("Index");
         }
         // POST: /Animal/Delete/5
         [HttpPost]
@@ -137,7 +137,7 @@ namespace Zoo.WebUI.Controllers
         public ActionResult Delete(int id, FormCollection form)
         {
           animalRepo.Delete(id);
-          return PartialView("_GetAnimals");
+          return RedirectToAction("Index", "Animal");
         }
     }
 }

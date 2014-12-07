@@ -26,7 +26,7 @@ namespace Zoo.BLL.Entities
         public Department Department { get; set; }
 
         [Required]
-        [Display(Name = "Количество приемомв пищи в сутки")]
+        [Display(Name = "Количество приемов пищи в сутки")]
         public int NumberFeeding { get; set; }
         [Required]
         [Display(Name = "Описание рациона")]

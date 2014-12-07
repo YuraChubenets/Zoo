@@ -1,0 +1,114 @@
+﻿@model PagedList.IPagedList<Zoo.BLL.Entities.Animal>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "AllAnimals";
+}
+<h2>AllAnimals</h2>
+
+
+<div id="modDialog" class="modal fade">
+    <div id="dialogContent" class="modal-dialog"></div>
+</div>
+
+<table class="tabletable-striped table-condensed"  >
+    <tr>
+        <th>
+            KindOfAnimal
+        </th>
+        <th>
+            Gender
+        </th>
+        <th>
+            Department
+        </th>
+        <th>
+            NumberFeeding
+        </th>
+        <th>
+            DiscriptionFeed
+        </th>
+        <th>
+            User
+        </th>
+        <th>
+            Feeding
+        </th>
+        <th>
+            Lifecycle
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.KindOfAnimal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GenderId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepartmentId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberFeeding)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiscriptionFeed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FeedingId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LifecycleId)
+            </td>
+            <td>
+                <ul class="nav  nav-stacked">
+                    <li>
+                        <span class="label label-default">
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Id },
+                      new { @class = "compItem", data_dialog_title = "Изменение" })
+                        </span>
+                    </li>
+                    <li>
+                        <span class="label label-warning ">
+                            @Html.ActionLink("Details", "Details", new { id = item.Id },
+                     new { @class = "compItem", data_dialog_title = "Описание" })
+                        </span>
+                    </li>
+                    <li>
+                        <span class="label label-danger ">
+                            @Html.ActionLink("Delete", "Delete", new { id = item.Id },
+                    new { @class = "compItem", data_dialog_title = "Удаление" })
+                        </span>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    }
+</table>
+<br />
+Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("AllAnimals", new { page }))
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajaxSetup({ cache: false });
+            $(document).on("click", ".compItem", function (e) {
+                e.preventDefault();
+                $.get(this.href, function (data) {
+                    $('#dialogContent').html(data);
+                    $('#modDialog').modal('show');
+                });
+            });
+        })
+
+    </script>
+}

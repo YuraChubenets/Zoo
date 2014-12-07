@@ -47,8 +47,6 @@ D:\Zoo\Zoo.DAL\bin\Debug\Zoo.BLL.dll
 D:\Zoo\Zoo.DAL\bin\Debug\Zoo.BLL.pdb
 D:\Zoo\Zoo.DAL\bin\Debug\EntityFramework.xml
 D:\Zoo\Zoo.DAL\bin\Debug\EntityFramework.SqlServer.xml
-D:\Zoo\Zoo.DAL\bin\Debug\ru\EntityFramework.resources.dll
-D:\Zoo\Zoo.DAL\bin\Debug\ru\EntityFramework.SqlServer.resources.dll
 D:\Zoo\Zoo.DAL\obj\Debug\Zoo.DAL.csprojResolveAssemblyReference.cache
 D:\Zoo\Zoo.DAL\obj\Debug\Zoo.DAL.dll
 D:\Zoo\Zoo.DAL\obj\Debug\Zoo.DAL.pdb

@@ -1,64 +1,67 @@
 ﻿@model Zoo.BLL.Entities.Animal
 
-<fieldset>
-    <legend>Animal</legend>
+<div class="modal-content">
+    <div class="modal-header">
+        <button class="close" data-dismiss="modal" aria-hidden="true">X</button>
+        <h3>Описание</h3>
+    </div>
+    <div class="modal-body">
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.KindOfAnimal)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.KindOfAnimal)
-    </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.KindOfAnimal)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.KindOfAnimal)
+        </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.GenderId)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.GenderId)
-    </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.GenderId)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.GenderId)
+        </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.DepartmentId)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.DepartmentId)
-    </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.DepartmentId)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.DepartmentId)
+        </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.NumberFeeding)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.NumberFeeding)
-    </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.NumberFeeding)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.NumberFeeding)
+        </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.DiscriptionFeed)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.DiscriptionFeed)
-    </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.DiscriptionFeed)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.DiscriptionFeed)
+        </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.UserId)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.UserId)
-    </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.UserId)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.UserId)
+        </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.FeedingId)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.FeedingId)
-    </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.FeedingId)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.FeedingId)
+        </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.LifecycleId)
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.LifecycleId)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.LifecycleId)
+        </div>
     </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.LifecycleId)
-    </div>
-</fieldset>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) 
-</p>
+</div>
+

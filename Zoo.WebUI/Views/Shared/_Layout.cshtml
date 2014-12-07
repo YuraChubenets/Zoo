@@ -7,6 +7,9 @@
     <title>@ViewBag.Title – приложение ASP.NET</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+
+    <link href="~/Content/PagedList.css" rel="stylesheet" />
+   
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -21,9 +24,9 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Animal")</li>
-                    <li>@Html.ActionLink("About", "AllAnimal", "Animal")</li>
-                    <li>@Html.ActionLink("Contact", "Index", "Animal")</li>
+                    <li>@Html.ActionLink("Publicly", "Index", "Animal")</li>
+                    <li>@Html.ActionLink("Animals", "AllAnimals", "Animal")</li>
+                    <li>@Html.ActionLink("#####", "Index", "Animal")</li>
                 </ul>
                 <ul class=" nav  navbar-nav  pull-right ">
                     <li>
@@ -40,28 +43,27 @@
                     <li>@Html.ActionLink("Выйти", "LogOff", "Account") </li>
 
                     <li>
-                        @using (Ajax.BeginForm("GetAnimals", "Animal", new AjaxOptions { UpdateTargetId = "tableAnimals" }))
-                        {
-                            <input type="text" class=" navbar-text  form-group" placeholder=" search" />
-                        }
+                          <input id="searchAnimals" type="text" class=" navbar-text  form-group" placeholder=" search" />
+                        
                     </li>                    
                 </ul>              
             </div>
         </div>
     </div>
     <div class="container body-content">
-        <div class="container">
+        <div class="container" style="  background-image: url(https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcT-vLpOlPjJpZwiFA5R4Uf-gs3ueP5Fwupzh_DxU0ouP3qNjM44  ); background-position: left bottom; background-repeat: no-repeat;">
             @RenderBody()
         </div>
         <hr />
-        <footer>
+        <footer >
             <p>&copy; @DateTime.Now.Year – приложение ASP.NET</p>
         </footer>
     </div>
-
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-
     @RenderSection("scripts", required: false)
+
+   
+
 </body>
 </html>

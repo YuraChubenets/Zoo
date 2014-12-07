@@ -3,27 +3,29 @@
 }
 <h2>Zoo-Kiev</h2>
 
-<div class="row text-center">
-    <div id="GridDiv" class="col-lg-6 col-sm-6 col-md-6  col-lg-offset-1">
-        @Html.Partial("_GetAnimals")
-    </div>
-
-    <div class="col-lg-1 col-sm-1">
+<div class="row ">
    
+   <div class="col-lg-3 col-sm-3 col-md-3  col-xs-3 " id="datepicker"></div>
+
+    <div id="modDialog" class="modal fade">
+        <div id="dialogContent" class="modal-dialog"></div>
     </div>
 
-   <div class="col-lg-4 col-sm-4 col-md-4  col-xs-4 " id="datepicker"></div>
+    <div id="tableAnimals" class="col-lg-7 col-sm-7 col-md-7   text-center">
+        @Html.Partial("_GetAnimals") 
+    </div>
+    <div class="col-lg- col-sm-1 col-md-1">   </div>
 </div>
 
-   <div class="row" >
-     <div class=" col-lg-12"> <div id="editForm"></div> 
-    </div>
-</div>
+<button class="btn btn-success  pull-right ">
+    @Html.ActionLink("Create New", "Create", "Animal", new { }, new { @class = "compItem", data_dialog_title = "Создание записи" })
+</button>
 
-   
 
-@section Scripts {
 
+
+@section scripts
+{
     <script type="text/javascript">
 
         $.datepicker.regional['ru'] = {
@@ -45,23 +47,37 @@
             showMonthAfterYear: false,
             yearSuffix: ''
         };
-    $.datepicker.setDefaults($.datepicker.regional['ru']);
+        $.datepicker.setDefaults($.datepicker.regional['ru']);
+
+        $("#datepicker").datepicker({
+            onSelect: function (dateText, inst) {
+                $(this).css("background-color", "");
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Animal/GetAnimals",
+                    data: { "date": dateText },
+                    success: function (data) {
+                        $("#tableAnimals").html(data);
+                        $("#date").text(dateText);
+                    }
+                });
+            }
+        });
 
 
-    $("#datepicker").datepicker({
-
-        onSelect: function (dateText, inst) {
-            $(this).css("background-color", "");
-
-            $.ajax({
-                type: "POST",
-                url: "/Animal/GetAnimals",
-                data: { "date": dateText },
-                success: function (data) {
-                    ("#tableAnimals").html(data);
-                }
+        $(document).ready(function () {
+            $.ajaxSetup({ cache: false });
+            $(document).on("click", ".compItem", function (e) {
+                e.preventDefault();
+                $.get(this.href, function (data) {
+                    $('#dialogContent').html(data);
+                    $('#modDialog').modal('show');
+                });
             });
-        }
-    });
-</script>
+        })
+
+    </script>
 }
+
+

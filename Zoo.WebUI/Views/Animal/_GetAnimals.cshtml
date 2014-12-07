@@ -1,52 +1,60 @@
 ﻿@model IEnumerable<Zoo.BLL.Entities.Animal>
 
-@{
-        var grid = new WebGrid(Model,
-            rowsPerPage: 10,
-            defaultSort: "KindOfAnimal",
-            columnNames: new[] {  "KindOfAnimal", "Gender", 
-                                  "Department", "NumberFeeding",
-                                  "DiscriptionFeed", "Feeding" , 
-                                  "Lifecycles" , "User" });
-}
+<ul class="nav navbar-nav pull-right">
+    <li>Список кормления животных на: </li>
+    <li><strong id="date"> - сегодня</strong></li>
+</ul>
 
-@if (HttpContext.Current.User.IsInRole("Руководитель"))
-{
-@grid.GetHtml(
- 
-fillEmptyRows: false,
-mode: WebGridPagerModes.All,
+<table class="table table-striped table-condensed" id="tableAnimals">
+    <tr>
+        <th>
+            <p>KindOfAnimals</p>
+        </th>
+        <th>
+            <p>Department</p>
+        </th>
+        <th>
+            <p>NumberFeeding</p>
+        </th>
+        <th>
+            <p>DescriptionFeed</p>
+        </th>
+        <th>
+            <p>Feeding</p>
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.KindOfAnimal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Department.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberFeeding)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiscriptionFeed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Feeding.NameFeeding)
+            </td>
+             <td>
+                 <ul class="nav  nav-stacked">
+                     <li><span class="label label-default">@Html.ActionLink("Edit", "Edit", new { id = item.Id },
+                      new { @class = "compItem", data_dialog_title = "Изменение" })   </span></li>
+                     <li><span class="label label-warning ">@Html.ActionLink("Details", "Details", new { id = item.Id },
+                     new { @class = "compItem", data_dialog_title = "Описание" }) </span></li>
+                   <li><span class="label label-danger ">@Html.ActionLink("Delete", "Delete", new { id = item.Id },
+                    new { @class = "compItem", data_dialog_title = "Удаление" }) </span></li>
+                 </ul>
+            </td>
+        </tr>
+    }
+
+</table>
 
 
-columns: grid.Columns
-(
-    grid.Column("KindOfAnimal", header: "KindOfAnimal"),
-    grid.Column("Gender", header: "Gender"),
-    grid.Column("Department", header: "Department"),
-    grid.Column("NumberFeeding", header: "NumberFeeding"),
-    grid.Column("DiscriptionFeed", header: "DiscriptionFeed"),
-    grid.Column("Feeding", header: "Feeding"),
-    grid.Column("Lifecycles", header: "Lifecycles"),
-    grid.Column("User", header: "User")
-))}
-else{ 
-
-@grid.GetHtml(
-
-        htmlAttributes: new { id = "tableAnimals" },
-  tableStyle: "table table-striped table-hover",   
-  fillEmptyRows: false,
-  mode: WebGridPagerModes.All,
-
-
-columns: grid.Columns
-(
-        grid.Column("KindOfAnimal", header: "KindOfAnimal" ),
-        grid.Column("Gender.Name", header: "Gender" ),
-        grid.Column("Department.Name", header: "Department" ),
-        grid.Column("NumberFeeding", header: "NumberFeeding"),
-        grid.Column("DiscriptionFeed", header: "DiscriptionFeed"),
-        grid.Column("Feeding.NameFeeding", header: "Feeding"),
-        grid.Column("Lifecycles.EnteredOrBorn", header: "Lifecycles",  format:(item)=>String.Format("{0:dd-MM-yyy}", item.Lifecycles.EnteredOrBorn))
-))
-}
