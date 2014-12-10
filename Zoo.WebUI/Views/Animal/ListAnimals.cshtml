@@ -6,22 +6,34 @@
 }
 
 <div id="content">
-    <table class="table table-striped table-condensed" id="tableAnimals">
+    <div id="modDialog" class="modal fade">
+        <div id="dialogContent" class="modal-dialog"></div>
+    </div>
+    <table class="tabletable-striped table-condensed">
         <tr>
             <th>
-                <p>KindOfAnimals</p>
+                KindOfAnimal
             </th>
             <th>
-                <p>Department</p>
+                Gender
             </th>
             <th>
-                <p>NumberFeeding</p>
+                Department
             </th>
             <th>
-                <p>DescriptionFeed</p>
+                NumberFeeding
             </th>
             <th>
-                <p>Feeding</p>
+                DiscriptionFeed
+            </th>
+            <th>
+                User
+            </th>
+            <th>
+                Feeding
+            </th>
+            <th>
+                Lifecycle
             </th>
             <th></th>
         </tr>
@@ -32,7 +44,10 @@
                     @Html.DisplayFor(modelItem => item.KindOfAnimal)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Department.Name)
+                    @Html.DisplayFor(modelItem => item.GenderId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DepartmentId)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.NumberFeeding)
@@ -41,7 +56,13 @@
                     @Html.DisplayFor(modelItem => item.DiscriptionFeed)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Feeding.NameFeeding)
+                    @Html.DisplayFor(modelItem => item.UserId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FeedingId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LifecycleId)
                 </td>
                 <td>
                     <ul class="nav  nav-stacked">
@@ -67,14 +88,16 @@
                 </td>
             </tr>
         }
-
     </table>
     <br />
+
+    <button class="btn btn-success  pull-right ">
+        @Html.ActionLink("Create New", "Create", "Animal", new { }, new { @class = "compItem", data_dialog_title = "Создание записи" })
+    </button>
+
+
     Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
     <div id="contentPager">
-        @Html.PagedListPager(Model, page => Url.Action("GetAnimals", new { page, date = ViewBag.Date }))
+        @Html.PagedListPager(Model, page => Url.Action("ListAnimals", new { page }))
     </div>
 </div>
-
-
-

@@ -38,11 +38,11 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.RoleId)
+            @Html.LabelFor(model => model.Role)
         </div>
         <div class="editor-field">
             @Html.DropDownListFor(model => model.RoleId, ViewBag.Roles as SelectList )
-            @Html.ValidationMessageFor(model => model.RoleId)
+            @Html.ValidationMessageFor(model => model.Role)
         </div>
 
         <p>

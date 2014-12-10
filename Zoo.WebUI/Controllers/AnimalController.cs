@@ -22,7 +22,7 @@ namespace Zoo.WebUI.Controllers
         IRepository<User> userRepo;
         IRepository<Feeding> feedingRepo;
         IRepository<Lifecycle> lifecycleRepo;
-
+        IRepository<ATD> atdRepo;
 
 
         public AnimalController(  IRepository<Animal> a)
@@ -37,10 +37,34 @@ namespace Zoo.WebUI.Controllers
             this.userRepo = new ZooRepository<User>();
             this.feedingRepo = new ZooRepository<Feeding>();
             this.lifecycleRepo = new ZooRepository<Lifecycle>();
+            this.atdRepo = new ZooRepository<ATD>();
         }
 
-        public ActionResult Index()
+        public ViewResult Index()
         {
+            return View();
+        }
+
+
+        public ActionResult GetAnimals(string date, int? page)
+        {
+            ViewBag.Date = date;
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+
+            if (date != null)
+            {
+                var anim = animalRepo.GetAll
+                   .Include(p => p.Gender)
+                   .Include(p => p.Department)
+                   .Include(p => p.User)
+                   .Include(p => p.Feeding)
+                   .Include(t => t.Lifecycles)
+                   .AsEnumerable().Where(u => (((DateTime.Parse(date) - u.Lifecycles.EnteredOrBorn).Days % u.Feeding.Count) == 0)).ToList();
+
+                return  View("_GetAnimals", anim.ToPagedList(pageNumber, pageSize));
+            }
+
             var animals = animalRepo.GetAll
                     .Include(p => p.Gender)
                     .Include(p => p.Department)
@@ -49,37 +73,60 @@ namespace Zoo.WebUI.Controllers
                     .Include(t => t.Lifecycles)
                     .AsEnumerable()
                     .Where(u => (((DateTime.UtcNow - u.Lifecycles.EnteredOrBorn).Days % u.Feeding.Count) == 0));
-            return View(animals);
+
+            return View("_GetAnimals", animals.ToPagedList(pageNumber, pageSize));
         }
 
 
-        public ActionResult GetAnimals(string date)
+        public ViewResult AllAnimals()
         {
-            if (date != null)
-            {
-                var animals = animalRepo.GetAll
-                    .Include(p => p.Gender)
-                    .Include(p => p.Department)
-                    .Include(p => p.User)
-                    .Include(p => p.Feeding)
-                    .Include(t => t.Lifecycles)
-                    .AsEnumerable()
-                    .Where(u => (((DateTime.Parse(date) - u.Lifecycles.EnteredOrBorn).Days % u.Feeding.Count) == 0));
-             
-                return PartialView("_GetAnimals", animals);
-            }
-            return View("Index");
+            return View();
         }
 
-        public ActionResult AllAnimals(int? page)
+       
+        public ActionResult ListAnimals(int? page, string text)
         {
-            int pageSize = 5;
+           int pageSize = 5;
             int pageNumber = (page ?? 1);
             var animals = animalRepo.GetAll.ToList();
+
+            if (text != null)
+            {
+                var anim = animals.Where(a => a.KindOfAnimal.ToUpper().Contains(text.ToUpper()) ||
+                                              a.DiscriptionFeed.ToUpper().Contains(text.ToUpper()));
+                return View(anim.ToPagedList(pageNumber, pageSize));
+
+            }
 
             return View(animals.ToPagedList(pageNumber, pageSize));
 
         }
+
+        //AnimalTransorDie
+        public ViewResult IndexAnimalsTrans()
+        {
+            return View();
+        }
+
+        public ActionResult ListAnimalsTrans(int? page)
+        {
+            int pageSize = 8;
+            int pageNumber = (page ?? 1);
+           
+
+
+            var animals = atdRepo.GetAll
+                   .Include(p => p.Gender)
+                   .Include(p => p.Department)
+                   .Include(p => p.User)
+                   .Include(p => p.Feeding)
+                   .Include(t => t.Lifecycles)
+                   .AsEnumerable().ToList();
+
+            return View(animals.ToPagedList(pageNumber, pageSize));
+        }
+
+
      
         // GET: /Animal/Details/5
 
@@ -98,12 +145,8 @@ namespace Zoo.WebUI.Controllers
         {
             ViewBag.Genders = new SelectList(genderRepo.GetAll, "Id", "Name");
             ViewBag.Departments = new SelectList(depatrtRepo.GetAll, "Id", "Name");
-            ViewBag.Users = new SelectList(userRepo.GetAll, "Id", "Name");
             ViewBag.Feedings = new SelectList(feedingRepo.GetAll, "Id", "NameFeeding");
-            ViewBag.Lifecycles = new SelectList(lifecycleRepo.GetAll, "Id", "EnteredOrBorn",);
-
-           // ViewBag.Id_Login = new SelectList(db.Logins, "Id", "Login1", catalogfilm.Id_Login);
-
+          
             return PartialView("_Create");
         }
 
@@ -112,6 +155,12 @@ namespace Zoo.WebUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Animal anim)
         {
+            var now = DateTime.UtcNow;
+            var life = new Lifecycle() { EnteredOrBorn = now, TransferredOrDied=null };
+            lifecycleRepo.Create(life);
+            anim.LifecycleId = lifecycleRepo.GetAll.Where(l => l.EnteredOrBorn == life.EnteredOrBorn).Select(l => l.Id).FirstOrDefault();
+            anim.UserId = userRepo.GetAll.Where(u => u.Login == User.Identity.Name).Select(a => a.Id).FirstOrDefault();
+
             if (ModelState.IsValid)
             {
                 animalRepo.Create(anim);
@@ -122,7 +171,6 @@ namespace Zoo.WebUI.Controllers
        
         
         // GET: /Animal/Edit/5
-
         public ActionResult Edit(int id)
         {
             var anim = animalRepo.GetOne(id);
@@ -153,9 +201,10 @@ namespace Zoo.WebUI.Controllers
         // POST: /Animal/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, FormCollection form)
+        public ActionResult Delete(int id, Animal anim)
         {
-          animalRepo.Delete(id);
+          anim.Lifecycles.TransferredOrDied = DateTime.Today;
+          animalRepo.Delete(anim.Id);
           return RedirectToAction("Index", "Animal");
         }
     }

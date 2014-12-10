@@ -43,6 +43,10 @@ namespace Zoo.DAL.Abstract
                {
                    return this.context.Lifecycles as IQueryable<T>;
                }
+               else if (typeof(T) == typeof(ATD))
+               {
+                   return this.context.ATDs as IQueryable<T>;
+               }
                else
                {
                    throw new NotSupportedException("/b This type is not supported");
@@ -79,8 +83,10 @@ namespace Zoo.DAL.Abstract
         {
             var user = this.context.Set<T>().Find(id);
             if (user != null)
+            {
                 this.context.Set<T>().Remove(user);
-            this.context.SaveChanges();
+                this.context.SaveChanges();
+            }
         }
     }
 }

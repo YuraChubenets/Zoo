@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\ATD.cs" />
     <Compile Include="Entities\Animal.cs" />
     <Compile Include="Entities\Department.cs" />
     <Compile Include="Entities\Feeding.cs" />

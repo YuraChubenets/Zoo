@@ -28,6 +28,8 @@ namespace Zoo.DAL
         public DbSet<Gender> Genders { get; set; }
         public DbSet<Feeding> Feeding { get; set; }
         public DbSet<Lifecycle> Lifecycles { get; set; }
+       
+        public DbSet<ATD> ATDs { get; set; }
     }
 }
 

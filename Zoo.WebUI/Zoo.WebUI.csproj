@@ -199,6 +199,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\JS.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\respond.js" />
@@ -211,7 +212,9 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -227,6 +230,9 @@
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Animal\_GetAnimals.cshtml" />
     <Content Include="Views\Animal\AllAnimals.cshtml" />
+    <Content Include="Views\Animal\ListAnimals.cshtml" />
+    <Content Include="Views\Animal\IndexAnimalsTrans.cshtml" />
+    <Content Include="Views\Animal\ListAnimalsTrans.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="helpers\" />

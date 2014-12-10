@@ -74,7 +74,7 @@ namespace Zoo.WebUI.Controllers
             public ActionResult Edit(int id)
             {
                 var user = userRepo.GetOne(id);
-                SelectList roles = new SelectList(roleRepo.GetAll, "Id", "Name", user.RoleId);
+                SelectList roles = new SelectList(roleRepo.GetAll, "Id", "Name");
                 ViewBag.Roles = roles;
                 return View(user);
             }

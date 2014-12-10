@@ -26,11 +26,12 @@
             </div>
 
             <div class="editor-label">
-                @Html.LabelFor(model => model.DepartmentId)
+                @Html.LabelFor(model => model.Department)
             </div>
             <div class="editor-field">
 
                 @Html.DropDownListFor(model => model.DepartmentId, ViewBag.Departments as SelectList)
+
                 @Html.ValidationMessageFor(model => model.Department)
             </div>
 
@@ -50,13 +51,7 @@
                 @Html.ValidationMessageFor(model => model.DiscriptionFeed)
             </div>
 
-            <div class="editor-label">
-                @Html.LabelFor(model => model.UserId)
-            </div>
-            <div class="editor-field">
-                @Html.DropDownListFor(model => model.UserId, ViewBag.Users as SelectList)
-                @Html.ValidationMessageFor(model => model.User)
-            </div>
+           
 
             <div class="editor-label">
                 @Html.LabelFor(model => model.FeedingId)
@@ -64,14 +59,6 @@
             <div class="editor-field">
                 @Html.DropDownListFor(model => model.FeedingId, ViewBag.Feedings as SelectList)
                 @Html.ValidationMessageFor(model => model.Feeding)
-            </div>
-
-            <div class="editor-label">
-                @Html.LabelFor(model => model.LifecycleId)
-            </div>
-            <div class="editor-field">
-                @Html.DropDownListFor(model => model.LifecycleId, ViewBag.Lifecycles as SelectList)
-                @Html.ValidationMessageFor(model => model.Lifecycles)
             </div>
 
             <p>
