@@ -8,59 +8,59 @@
     <div class="modal-body">
 
         <div class="display-label">
-            @Html.DisplayNameFor(model => model.KindOfAnimal)
+            @Html.LabelFor(model => model.KindOfAnimal)
         </div>
         <div class="display-field">
             @Html.DisplayFor(model => model.KindOfAnimal)
         </div>
 
         <div class="display-label">
-            @Html.DisplayNameFor(model => model.GenderId)
+            @Html.LabelFor(model => model.GenderId)
         </div>
         <div class="display-field">
-            @Html.DisplayFor(model => model.GenderId)
+            @Html.DisplayFor(model => model.Gender.Name)
         </div>
 
         <div class="display-label">
-            @Html.DisplayNameFor(model => model.DepartmentId)
+            @Html.LabelFor(model => model.DepartmentId)
         </div>
         <div class="display-field">
-            @Html.DisplayFor(model => model.DepartmentId)
+            @Html.DisplayFor(model => model.Department.Name)
         </div>
 
         <div class="display-label">
-            @Html.DisplayNameFor(model => model.NumberFeeding)
+            @Html.LabelFor(model => model.NumberFeeding)
         </div>
         <div class="display-field">
             @Html.DisplayFor(model => model.NumberFeeding)
         </div>
 
         <div class="display-label">
-            @Html.DisplayNameFor(model => model.DiscriptionFeed)
+            @Html.LabelFor(model => model.DiscriptionFeed)
         </div>
         <div class="display-field">
             @Html.DisplayFor(model => model.DiscriptionFeed)
         </div>
 
         <div class="display-label">
-            @Html.DisplayNameFor(model => model.UserId)
+            @Html.LabelFor(model => model.UserId)
         </div>
         <div class="display-field">
-            @Html.DisplayFor(model => model.UserId)
+            @Html.DisplayFor(model => model.User.Name)
         </div>
 
         <div class="display-label">
-            @Html.DisplayNameFor(model => model.FeedingId)
+            @Html.LabelFor(model => model.FeedingId)
         </div>
         <div class="display-field">
-            @Html.DisplayFor(model => model.FeedingId)
+            @Html.DisplayFor(model => model.Feeding.NameFeeding)
         </div>
 
         <div class="display-label">
-            @Html.DisplayNameFor(model => model.LifecycleId)
+            @Html.LabelFor(model => model.LifecycleId)
         </div>
         <div class="display-field">
-            @Html.DisplayFor(model => model.LifecycleId)
+            @Html.DisplayFor(model => model.Lifecycles.EnteredOrBorn)
         </div>
     </div>
 </div>

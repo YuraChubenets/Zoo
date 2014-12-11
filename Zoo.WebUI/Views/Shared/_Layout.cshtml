@@ -25,8 +25,10 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Publicly", "Index", "Animal")</li>
+                   @if (ViewContext.HttpContext.User.IsInRole("Руководитель")) { 
                     <li>@Html.ActionLink("Animals", "AllAnimals", "Animal")</li>
                     <li>@Html.ActionLink("#####", "IndexAnimalsTrans", "Animal", new {@id="link" })</li>
+                   }
                 </ul>
                 <ul class=" nav  navbar-nav  pull-right ">
                     <li>
@@ -58,8 +60,6 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-
-   
 
 </body>
 </html>

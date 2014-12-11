@@ -132,6 +132,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\LogViewModel.cs" />
+    <Compile Include="Models\TimesEnum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Provider\ZooRoleProvider.cs" />
   </ItemGroup>
@@ -233,6 +234,7 @@
     <Content Include="Views\Animal\ListAnimals.cshtml" />
     <Content Include="Views\Animal\IndexAnimalsTrans.cshtml" />
     <Content Include="Views\Animal\ListAnimalsTrans.cshtml" />
+    <Content Include="Views\Animal\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="helpers\" />

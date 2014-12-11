@@ -29,9 +29,7 @@
                 @Html.LabelFor(model => model.Department)
             </div>
             <div class="editor-field">
-
                 @Html.DropDownListFor(model => model.DepartmentId, ViewBag.Departments as SelectList)
-
                 @Html.ValidationMessageFor(model => model.Department)
             </div>
 
@@ -50,9 +48,6 @@
                 @Html.EditorFor(model => model.DiscriptionFeed)
                 @Html.ValidationMessageFor(model => model.DiscriptionFeed)
             </div>
-
-           
-
             <div class="editor-label">
                 @Html.LabelFor(model => model.FeedingId)
             </div>

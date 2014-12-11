@@ -1,84 +1,74 @@
 ﻿@model Zoo.BLL.Entities.Animal
 
-
-
     <div class="modal-content">
         <div class="modal-header">
             <button class="close" data-dismiss="modal"  aria-hidden="true">X</button>
             <h3>Animal</h3>
         </div>
-        <div class="modal-body">
-            
-               @Html.HiddenFor(model => model.Id)
-
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.KindOfAnimal)
-                </div>
-                <div class="editor-field">
-                    @Html.EditorFor(model => model.KindOfAnimal)
-                    @Html.ValidationMessageFor(model => model.KindOfAnimal)
-                </div>
-
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.GenderId)
-                </div>
-                <div class="editor-field">
-                    @Html.EditorFor(model => model.GenderId)
-                    @Html.ValidationMessageFor(model => model.GenderId)
-                </div>
-
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.DepartmentId)
-                </div>
-                <div class="editor-field">
-                    @Html.EditorFor(model => model.DepartmentId)
-                    @Html.ValidationMessageFor(model => model.DepartmentId)
-                </div>
-
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.NumberFeeding)
-                </div>
-                <div class="editor-field">
-                    @Html.EditorFor(model => model.NumberFeeding)
-                    @Html.ValidationMessageFor(model => model.NumberFeeding)
-                </div>
-
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.DiscriptionFeed)
-                </div>
-                <div class="editor-field">
-                    @Html.EditorFor(model => model.DiscriptionFeed)
-                    @Html.ValidationMessageFor(model => model.DiscriptionFeed)
-                </div>
-
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.UserId)
-                </div>
-                <div class="editor-field">
-                    @Html.EditorFor(model => model.UserId)
-                    @Html.ValidationMessageFor(model => model.UserId)
-                </div>
-
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.FeedingId)
-                </div>
-                <div class="editor-field">
-                    @Html.EditorFor(model => model.FeedingId)
-                    @Html.ValidationMessageFor(model => model.FeedingId)
-                </div>
-
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.LifecycleId)
-                </div>
-                <div class="editor-field">
-                    @Html.EditorFor(model => model.LifecycleId)
-                    @Html.ValidationMessageFor(model => model.LifecycleId)
-                </div>
-
-                <p>
-                    <input type="submit" value="Save" />
-                </p>
-            </div>
+@using (Html.BeginForm("Edit", "Animal", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div class="modal-body">
+        <div class="editor-label">
+            @Html.LabelFor(model => model.KindOfAnimal)
         </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.KindOfAnimal)
+            @Html.ValidationMessageFor(model => model.KindOfAnimal)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.GenderId)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.GenderId, ViewBag.Genders as SelectList)
+            @Html.ValidationMessageFor(model => model.Gender)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Department)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.DepartmentId, ViewBag.Departments as SelectList)
+            @Html.ValidationMessageFor(model => model.Department)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.NumberFeeding)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.NumberFeeding)
+            @Html.ValidationMessageFor(model => model.NumberFeeding)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DiscriptionFeed)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DiscriptionFeed)
+            @Html.ValidationMessageFor(model => model.DiscriptionFeed)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.FeedingId)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.FeedingId, ViewBag.Feedings as SelectList)
+            @Html.ValidationMessageFor(model => model.Feeding)
+        </div>
+
+        <div>
+                @Html.HiddenFor(model => model.UserId)            
+        </div>
+        <div>
+            @Html.HiddenFor(model => model.LifecycleId)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </div>
+
+}
+
+               
+   </div>
+    
             
 

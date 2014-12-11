@@ -156,11 +156,10 @@ namespace Zoo.WebUI.Controllers
         public ActionResult Create(Animal anim)
         {
             var now = DateTime.UtcNow;
-            var life = new Lifecycle() { EnteredOrBorn = now, TransferredOrDied=null };
+            var life = new Lifecycle() { EnteredOrBorn = now };
             lifecycleRepo.Create(life);
-            anim.LifecycleId = lifecycleRepo.GetAll.Where(l => l.EnteredOrBorn == life.EnteredOrBorn).Select(l => l.Id).FirstOrDefault();
+            anim.LifecycleId = life.Id;
             anim.UserId = userRepo.GetAll.Where(u => u.Login == User.Identity.Name).Select(a => a.Id).FirstOrDefault();
-
             if (ModelState.IsValid)
             {
                 animalRepo.Create(anim);
@@ -173,6 +172,11 @@ namespace Zoo.WebUI.Controllers
         // GET: /Animal/Edit/5
         public ActionResult Edit(int id)
         {
+            ViewBag.Genders = new SelectList(genderRepo.GetAll, "Id", "Name");
+            ViewBag.Departments = new SelectList(depatrtRepo.GetAll, "Id", "Name");
+            ViewBag.Feedings = new SelectList(feedingRepo.GetAll, "Id", "NameFeeding");
+            ViewBag.Users = new SelectList(userRepo.GetAll, "Id", "Name");
+            
             var anim = animalRepo.GetOne(id);
             if (anim!=null)
             {
@@ -183,10 +187,14 @@ namespace Zoo.WebUI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Animal anim)
+        public ActionResult Edit( Animal animals)
         {
-                 animalRepo.Update(anim);
-                 return RedirectToAction("Index", "Animal");
+            var anim = animalRepo.GetOne(animals.Id);
+
+            animalRepo.Delete(animals.Id);
+
+            animalRepo.Create(animals);
+            return RedirectToAction("Index", "Animal");
         }
 
         public ActionResult Delete(int id)
@@ -201,10 +209,11 @@ namespace Zoo.WebUI.Controllers
         // POST: /Animal/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, Animal anim)
+        public ActionResult Delete(int id, Animal animal)
         {
-          anim.Lifecycles.TransferredOrDied = DateTime.Today;
-          animalRepo.Delete(anim.Id);
+          var anim = animalRepo.GetOne(id);
+          anim.Lifecycles.TransferredOrDied = DateTime.UtcNow;
+          animalRepo.Delete(id);
           return RedirectToAction("Index", "Animal");
         }
     }

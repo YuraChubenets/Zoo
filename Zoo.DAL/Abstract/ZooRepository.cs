@@ -6,7 +6,7 @@ using Zoo.BLL.Entities;
 
 namespace Zoo.DAL.Abstract
 {
-   public  class ZooRepository<T> : IRepository<T>  where T : class ,new () 
+   public  class ZooRepository<T> : IRepository<T>  where T : class 
     {
        //singleton
        private readonly ZooDbContext context = ZooDbContext.Instance;
@@ -73,9 +73,9 @@ namespace Zoo.DAL.Abstract
             }
         }
 
-        public void Update(T item)
+        public void Update(T item) 
         {
-            this.context.Entry<T>(item).State = EntityState.Modified;
+            this.context.Entry(item).State = EntityState.Modified;
             this.context.SaveChanges();
         }
 

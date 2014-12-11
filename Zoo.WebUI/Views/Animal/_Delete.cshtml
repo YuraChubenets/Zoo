@@ -1,68 +1,66 @@
 ﻿@model Zoo.BLL.Entities.Animal
-
+@using Zoo.WebUI.Models
 
 <div class="modal-content">
-    
-    
     <div class="modal-header">
         <button class="close" data-dismiss="modal" aria-hidden="true">X</button>
         <h3>Are you sure you want to delete animal?</h3>
     </div>
     <div class="modal-body">
-            <div class="display-label">
-                @Html.DisplayNameFor(model => model.KindOfAnimal)
-            </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.KindOfAnimal)
+        </div>
             <div class="display-field">
                 @Html.DisplayFor(model => model.KindOfAnimal)
             </div>
 
-            <div class="display-label">
-                @Html.DisplayNameFor(model => model.GenderId)
-            </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.GenderId)
+        </div>
             <div class="display-field">
-                @Html.DisplayFor(model => model.GenderId)
+                @Html.DisplayFor(model => model.Gender.Name)
             </div>
 
-            <div class="display-label">
-                @Html.DisplayNameFor(model => model.DepartmentId)
-            </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DepartmentId)
+        </div>
             <div class="display-field">
-                @Html.DisplayFor(model => model.DepartmentId)
+                @Html.DisplayFor(model => model.Department.Name)
             </div>
 
-            <div class="display-label">
-                @Html.DisplayNameFor(model => model.NumberFeeding)
-            </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.NumberFeeding)
+        </div>
             <div class="display-field">
-                @Html.DisplayFor(model => model.NumberFeeding)
+                @Html.DisplayFor(model => model.NumberFeeding)     
             </div>
 
-            <div class="display-label">
-                @Html.DisplayNameFor(model => model.DiscriptionFeed)
-            </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DiscriptionFeed)
+        </div>
             <div class="display-field">
                 @Html.DisplayFor(model => model.DiscriptionFeed)
             </div>
 
-            <div class="display-label">
-                @Html.DisplayNameFor(model => model.UserId)
-            </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.UserId)
+        </div>
             <div class="display-field">
-                @Html.DisplayFor(model => model.UserId)
+                @Html.DisplayFor(model => model.User.Name)
             </div>
 
-            <div class="display-label">
-                @Html.DisplayNameFor(model => model.FeedingId)
-            </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.FeedingId)
+        </div>
             <div class="display-field">
-                @Html.DisplayFor(model => model.FeedingId)
+                @Html.DisplayFor(model => model.Feeding.NameFeeding)
             </div>
 
-            <div class="display-label">
-                @Html.DisplayNameFor(model => model.LifecycleId)
-            </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.LifecycleId)
+        </div>
             <div class="display-field">
-                @Html.DisplayFor(model => model.LifecycleId)
+                @Html.DisplayFor(model => model.Lifecycles.EnteredOrBorn)
             </div>
             @using (Html.BeginForm())
             {
@@ -70,6 +68,5 @@
 
                 <input type="submit" value="Удалить" />
             }
-
-        </div>
-    </div>
+       </div>
+</div>

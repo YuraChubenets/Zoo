@@ -44,26 +44,29 @@
                     @Html.DisplayFor(modelItem => item.KindOfAnimal)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.GenderId)
+                    @Html.DisplayFor(modelItem => item.Gender.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DepartmentId)
+                    @Html.DisplayFor(modelItem => item.Department.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.NumberFeeding)
+                    @Html.DisplayFor(modelItem => Zoo.WebUI.Models.TimesDict.dictionaryTime[item.NumberFeeding])
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.DiscriptionFeed)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.UserId)
+                    @Html.DisplayFor(modelItem => item.User.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.FeedingId)
+                    @Html.DisplayFor(modelItem => item.Feeding.NameFeeding)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.LifecycleId)
+                    @Html.DisplayFor(modelItem => item.Lifecycles.EnteredOrBorn)
+
                 </td>
+                @if (ViewContext.HttpContext.User.IsInRole("Руководитель"))
+                { 
                 <td>
                     <ul class="nav  nav-stacked">
                         <li>
@@ -86,15 +89,18 @@
                         </li>
                     </ul>
                 </td>
+                }
             </tr>
         }
     </table>
     <br />
 
+  @if (ViewContext.HttpContext.User.IsInRole("Руководитель"))
+   { 
     <button class="btn btn-success  pull-right ">
         @Html.ActionLink("Create New", "Create", "Animal", new { }, new { @class = "compItem", data_dialog_title = "Создание записи" })
     </button>
-
+   }
 
     Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
     <div id="contentPager">

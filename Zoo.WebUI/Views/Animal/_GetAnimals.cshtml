@@ -35,7 +35,7 @@
                     @Html.DisplayFor(modelItem => item.Department.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.NumberFeeding)
+                    @Html.DisplayFor(modelItem => Zoo.WebUI.Models.TimesDict.dictionaryTime[item.NumberFeeding])
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.DiscriptionFeed)
@@ -44,6 +44,8 @@
                     @Html.DisplayFor(modelItem => item.Feeding.NameFeeding)
                 </td>
                 <td>
+             @if (ViewContext.HttpContext.User.IsInRole("Руководитель"))
+             { 
                     <ul class="nav  nav-stacked">
                         <li>
                             <span class="label label-default">
@@ -64,6 +66,7 @@
                             </span>
                         </li>
                     </ul>
+             }
                 </td>
             </tr>
         }
