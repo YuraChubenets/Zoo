@@ -27,7 +27,7 @@
                     <li>@Html.ActionLink("Publicly", "Index", "Animal")</li>
                    @if (ViewContext.HttpContext.User.IsInRole("Руководитель")) { 
                     <li>@Html.ActionLink("Animals", "AllAnimals", "Animal")</li>
-                    <li>@Html.ActionLink("#####", "IndexAnimalsTrans", "Animal", new {@id="link" })</li>
+                    <li>@Html.ActionLink("#####", "IndexAnimalsTrans", "Animal") </li>
                    }
                 </ul>
                 <ul class=" nav  navbar-nav  pull-right ">

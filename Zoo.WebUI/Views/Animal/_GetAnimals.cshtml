@@ -45,26 +45,16 @@
                 </td>
                 <td>
              @if (ViewContext.HttpContext.User.IsInRole("Руководитель"))
-             { 
-                    <ul class="nav  nav-stacked">
+             {  
+                 <ul>
+                   
                         <li>
-                            <span class="label label-default">
-                                @Html.ActionLink("Edit", "Edit", new { id = item.Id },
-                      new { @class = "compItem", data_dialog_title = "Изменение" })
-                            </span>
-                        </li>
-                        <li>
-                            <span class="label label-warning ">
+                            <span class="label btn-warning">
                                 @Html.ActionLink("Details", "Details", new { id = item.Id },
                      new { @class = "compItem", data_dialog_title = "Описание" })
                             </span>
                         </li>
-                        <li>
-                            <span class="label label-danger ">
-                                @Html.ActionLink("Delete", "Delete", new { id = item.Id },
-                    new { @class = "compItem", data_dialog_title = "Удаление" })
-                            </span>
-                        </li>
+                       
                     </ul>
              }
                 </td>

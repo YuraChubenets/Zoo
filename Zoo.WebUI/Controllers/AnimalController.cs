@@ -97,7 +97,6 @@ namespace Zoo.WebUI.Controllers
                 return View(anim.ToPagedList(pageNumber, pageSize));
 
             }
-
             return View(animals.ToPagedList(pageNumber, pageSize));
 
         }
@@ -113,8 +112,6 @@ namespace Zoo.WebUI.Controllers
             int pageSize = 8;
             int pageNumber = (page ?? 1);
            
-
-
             var animals = atdRepo.GetAll
                    .Include(p => p.Gender)
                    .Include(p => p.Department)
@@ -137,7 +134,13 @@ namespace Zoo.WebUI.Controllers
             {
                 return PartialView("_Details", anim);
             }
-            return View("Index");
+            var animATD = atdRepo.GetOne(id);
+            if (animATD != null)
+            {
+                return PartialView("_Details", animATD);
+            }
+
+            return View();
         }
 
         // GET: /Animal/Create
@@ -163,9 +166,9 @@ namespace Zoo.WebUI.Controllers
             if (ModelState.IsValid)
             {
                 animalRepo.Create(anim);
-                return RedirectToAction("Index");
+                return RedirectToAction("AllAnimals");
             }
-            return View("Index");
+            return View("AllAnimals");
         }
        
         
@@ -182,19 +185,15 @@ namespace Zoo.WebUI.Controllers
             {
                 return PartialView("_Edit",anim);
             }
-            return View("Index");
+            return View("AllAnimals");
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit( Animal animals)
         {
-            var anim = animalRepo.GetOne(animals.Id);
-
-            animalRepo.Delete(animals.Id);
-
-            animalRepo.Create(animals);
-            return RedirectToAction("Index", "Animal");
+            animalRepo.Update(animals, animals.Id );
+            return RedirectToAction("AllAnimals", "Animal");
         }
 
         public ActionResult Delete(int id)
@@ -204,7 +203,7 @@ namespace Zoo.WebUI.Controllers
           {
               return  PartialView("_Delete", anim);
           }
-            return View("Index");
+            return View("AllAnimals");
         }
         // POST: /Animal/Delete/5
         [HttpPost]
@@ -214,7 +213,7 @@ namespace Zoo.WebUI.Controllers
           var anim = animalRepo.GetOne(id);
           anim.Lifecycles.TransferredOrDied = DateTime.UtcNow;
           animalRepo.Delete(id);
-          return RedirectToAction("Index", "Animal");
+          return RedirectToAction("AllAnimals", "Animal");
         }
     }
 }

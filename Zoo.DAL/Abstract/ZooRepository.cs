@@ -11,6 +11,7 @@ namespace Zoo.DAL.Abstract
        //singleton
        private readonly ZooDbContext context = ZooDbContext.Instance;
 
+
        public IQueryable<T> GetAll
        {
            get
@@ -73,9 +74,11 @@ namespace Zoo.DAL.Abstract
             }
         }
 
-        public void Update(T item) 
+        public void Update(T item, int key) 
         {
-            this.context.Entry(item).State = EntityState.Modified;
+            T exist = this.context.Set<T>().Find(key);
+            this.context.Entry(exist).CurrentValues.SetValues(item);
+            this.context.Entry<T>(exist).State = EntityState.Modified;
             this.context.SaveChanges();
         }
 

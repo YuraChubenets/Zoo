@@ -85,7 +85,7 @@ namespace Zoo.WebUI.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    userRepo.Update(user);
+                    userRepo.Update(user, user.Id);
                     return RedirectToAction("Index");
                 }
 

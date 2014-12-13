@@ -9,7 +9,7 @@ namespace Zoo.DAL.Abstract
         IQueryable<T> GetAll { get; }
         T GetOne(int id);
         void Create(T item);
-        void Update(T item);
+        void Update(T item, int key);
         void Delete(int id);
     }
 }

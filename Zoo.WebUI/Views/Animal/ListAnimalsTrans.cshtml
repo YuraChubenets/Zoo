@@ -5,7 +5,6 @@
     Layout = null;
 }
 
-
 <div id="content">
     <div id="modDialog" class="modal fade">
         <div id="dialogContent" class="modal-dialog"></div>
@@ -68,33 +67,22 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Lifecycles.TransferredOrDied)
                 </td>
-           @if (ViewContext.HttpContext.User.IsInRole("Руководитель"))
-                {
                 <td>
-           
-                    <ul class="nav  nav-stacked">
-                        <li>
-                            <span class="label label-default">
-                                @Html.ActionLink("Edit", "Edit", new { id = item.Id },
-                      new { @class = "compItem", data_dialog_title = "Изменение" })
-                            </span>
-                        </li>
-                        <li>
-                            <span class="label label-warning ">
-                                @Html.ActionLink("Details", "Details", new { id = item.Id },
+                    @if (ViewContext.HttpContext.User.IsInRole("Руководитель"))
+                    {
+                    <td>
+                        <ul class="nav  nav-stacked">
+                         
+                            <li>
+                                <span class="label label-warning btn-warning">
+                                    @Html.ActionLink("Details", "Details", new { id = item.Id },
                      new { @class = "compItem", data_dialog_title = "Описание" })
-                            </span>
-                        </li>
-                        <li>
-                            <span class="label label-danger ">
-                                @Html.ActionLink("Delete", "Delete", new { id = item.Id },
-                    new { @class = "compItem", data_dialog_title = "Удаление" })
-                            </span>
-                        </li>
-                    </ul>
-           
-                </td>
-               }
+                                </span>
+                            </li>
+                           
+                        </ul>
+                    </td>
+                    }
             </tr>
         }
     </table>

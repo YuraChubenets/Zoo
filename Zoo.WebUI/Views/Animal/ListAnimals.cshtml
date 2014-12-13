@@ -70,19 +70,19 @@
                 <td>
                     <ul class="nav  nav-stacked">
                         <li>
-                            <span class="label label-default">
+                            <span class="label label-default btn-default">
                                 @Html.ActionLink("Edit", "Edit", new { id = item.Id },
                       new { @class = "compItem", data_dialog_title = "Изменение" })
                             </span>
                         </li>
                         <li>
-                            <span class="label label-warning ">
+                            <span class="label label-warning btn-warning">
                                 @Html.ActionLink("Details", "Details", new { id = item.Id },
                      new { @class = "compItem", data_dialog_title = "Описание" })
                             </span>
                         </li>
                         <li>
-                            <span class="label label-danger ">
+                            <span class="label label-danger btn-danger ">
                                 @Html.ActionLink("Delete", "Delete", new { id = item.Id },
                     new { @class = "compItem", data_dialog_title = "Удаление" })
                             </span>

@@ -43,6 +43,7 @@ $(document).ready(function () {
     $(document).on("click", ".compItem", function (e) {
         e.preventDefault();
         $.get(this.href, function (data) {
+           // alert(data);
             $('#dialogContent').html(data);
             $('#modDialog').modal('show');
         });
@@ -62,7 +63,6 @@ $(document).ready(function () {
                    data:{"text": text},
                    success: function (result)
                    {
-                       alert(result)
                        $("#content").html(result);
                    }
                })
