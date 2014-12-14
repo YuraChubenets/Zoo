@@ -25,9 +25,13 @@ namespace Zoo.BLL.Entities
         public int DepartmentId { get; set; }
         public Department Department { get; set; }
 
-        [Required]
+
         [Display(Name = "Количество приемов пищи в сутки")]
+        [Range(1,24, ErrorMessage = "Pades very big or negative ")]
+        [Required(ErrorMessage = "Обязотельное поле.")]
         public int NumberFeeding { get; set; }
+        
+       
         [Required]
         [Display(Name = "Описание рациона")]
         public string DiscriptionFeed { get; set; }

@@ -9,10 +9,13 @@ using Zoo.DAL.Abstract;
 using Zoo.WebUI.Models;
 using PagedList.Mvc;
 using PagedList;
+using Zoo.WebUI.helpers;
+using System.Threading.Tasks;
 
 namespace Zoo.WebUI.Controllers
 {
     [Authorize(Roles = "Администратор, Руководитель, Исполнитель")]
+    [PageTimeAttribute]
     public class AnimalController : Controller
     {
         // GET: /Animal/
@@ -22,9 +25,7 @@ namespace Zoo.WebUI.Controllers
         IRepository<User> userRepo;
         IRepository<Feeding> feedingRepo;
         IRepository<Lifecycle> lifecycleRepo;
-        IRepository<ATD> atdRepo;
-
-
+       
         public AnimalController(  IRepository<Animal> a)
         {
             animalRepo = a;
@@ -37,14 +38,12 @@ namespace Zoo.WebUI.Controllers
             this.userRepo = new ZooRepository<User>();
             this.feedingRepo = new ZooRepository<Feeding>();
             this.lifecycleRepo = new ZooRepository<Lifecycle>();
-            this.atdRepo = new ZooRepository<ATD>();
         }
 
         public ViewResult Index()
         {
             return View();
         }
-
 
         public ActionResult GetAnimals(string date, int? page)
         {
@@ -77,13 +76,11 @@ namespace Zoo.WebUI.Controllers
             return View("_GetAnimals", animals.ToPagedList(pageNumber, pageSize));
         }
 
-
         public ViewResult AllAnimals()
         {
             return View();
         }
-
-       
+   
         public ActionResult ListAnimals(int? page, string text)
         {
            int pageSize = 5;
@@ -101,46 +98,13 @@ namespace Zoo.WebUI.Controllers
 
         }
 
-        //AnimalTransorDie
-        public ViewResult IndexAnimalsTrans()
-        {
-            return View();
-        }
-
-        public ActionResult ListAnimalsTrans(int? page)
-        {
-            int pageSize = 8;
-            int pageNumber = (page ?? 1);
-           
-            var animals = atdRepo.GetAll
-                   .Include(p => p.Gender)
-                   .Include(p => p.Department)
-                   .Include(p => p.User)
-                   .Include(p => p.Feeding)
-                   .Include(t => t.Lifecycles)
-                   .AsEnumerable().ToList();
-
-            return View(animals.ToPagedList(pageNumber, pageSize));
-        }
-
-
      
         // GET: /Animal/Details/5
-
-        public ActionResult Details(int id)
+        public async Task <ActionResult> Details(int id)
         {
-            var anim = animalRepo.GetOne(id);
-            if (anim != null)
-            {
-                return PartialView("_Details", anim);
-            }
-            var animATD = atdRepo.GetOne(id);
-            if (animATD != null)
-            {
-                return PartialView("_Details", animATD);
-            }
-
-            return View();
+            var anim = await animalRepo.GetOne(id);
+            
+             return PartialView("_Details", anim);
         }
 
         // GET: /Animal/Create
@@ -156,16 +120,16 @@ namespace Zoo.WebUI.Controllers
         // POST: /Animal/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Animal anim)
+        public async Task<ActionResult> Create(Animal anim)
         {
             var now = DateTime.UtcNow;
             var life = new Lifecycle() { EnteredOrBorn = now };
-            lifecycleRepo.Create(life);
+            await lifecycleRepo.Create(life);
             anim.LifecycleId = life.Id;
-            anim.UserId = userRepo.GetAll.Where(u => u.Login == User.Identity.Name).Select(a => a.Id).FirstOrDefault();
+            anim.UserId = await userRepo.GetAll.Where(u => u.Login == User.Identity.Name).Select(a => a.Id).FirstOrDefaultAsync();
             if (ModelState.IsValid)
             {
-                animalRepo.Create(anim);
+                await animalRepo.Create(anim);
                 return RedirectToAction("AllAnimals");
             }
             return View("AllAnimals");
@@ -173,14 +137,14 @@ namespace Zoo.WebUI.Controllers
        
         
         // GET: /Animal/Edit/5
-        public ActionResult Edit(int id)
+        public async Task <ActionResult> Edit(int id)
         {
             ViewBag.Genders = new SelectList(genderRepo.GetAll, "Id", "Name");
             ViewBag.Departments = new SelectList(depatrtRepo.GetAll, "Id", "Name");
             ViewBag.Feedings = new SelectList(feedingRepo.GetAll, "Id", "NameFeeding");
             ViewBag.Users = new SelectList(userRepo.GetAll, "Id", "Name");
-            
-            var anim = animalRepo.GetOne(id);
+   
+            var anim = await animalRepo.GetOne(id);
             if (anim!=null)
             {
                 return PartialView("_Edit",anim);
@@ -196,9 +160,9 @@ namespace Zoo.WebUI.Controllers
             return RedirectToAction("AllAnimals", "Animal");
         }
 
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-          var anim= animalRepo.GetOne(id);
+          var anim= await animalRepo.GetOne(id);
           if (anim != null)
           {
               return  PartialView("_Delete", anim);
@@ -208,11 +172,11 @@ namespace Zoo.WebUI.Controllers
         // POST: /Animal/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, Animal animal)
+        public async Task <ActionResult> Delete(int id, Animal animal)
         {
-          var anim = animalRepo.GetOne(id);
+          var anim = await animalRepo.GetOne(id);
           anim.Lifecycles.TransferredOrDied = DateTime.UtcNow;
-          animalRepo.Delete(id);
+          await  animalRepo.Delete(id);
           return RedirectToAction("AllAnimals", "Animal");
         }
     }

@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using Zoo.BLL.Entities;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace Zoo.DAL.Abstract
 {
@@ -16,57 +16,21 @@ namespace Zoo.DAL.Abstract
        {
            get
            {
-               if (typeof(T) == typeof(Animal))
-               {
-                   return this.context.Animals as IQueryable<T>;
-               }
-               else if (typeof(T) == typeof(Department))
-               {
-                   return this.context.Departments as IQueryable<T>;
-               }
-               else if (typeof(T) == typeof(Gender))
-               {
-                   return this.context.Genders as IQueryable<T>;
-               }
-               else if (typeof(T) == typeof(Role))
-               {
-                   return this.context.Roles as IQueryable<T>;
-               }
-               else if (typeof(T) == typeof(User))
-               {
-                   return this.context.Users as IQueryable<T>;
-               }
-               else if (typeof(T) == typeof(Feeding))
-               {
-                   return this.context.Feeding as IQueryable<T>;
-               }
-               else if (typeof(T) == typeof(Lifecycle))
-               {
-                   return this.context.Lifecycles as IQueryable<T>;
-               }
-               else if (typeof(T) == typeof(ATD))
-               {
-                   return this.context.ATDs as IQueryable<T>;
-               }
-               else
-               {
-                   throw new NotSupportedException("/b This type is not supported");
-               }
-
+              return this.context.Set<T>();
            }
        }
 
-        public T GetOne(int id)
+        public async Task<T> GetOne(int id)
         {
-            return this.context.Set<T>().Find(id);
+            return await this.context.Set<T>().FindAsync(id);
         }
 
-        public void Create(T item)
+        public async Task Create(T item)
         {
             try
             {
                 this.context.Set<T>().Add(item);
-                this.context.SaveChanges();
+                await this.context.SaveChangesAsync();
             }
             catch (Exception ex)
             {
@@ -74,21 +38,21 @@ namespace Zoo.DAL.Abstract
             }
         }
 
-        public void Update(T item, int key) 
+        public async Task Update(T item, int key) 
         {
-            T exist = this.context.Set<T>().Find(key);
+            T exist =  this.context.Set<T>().Find(key);
             this.context.Entry(exist).CurrentValues.SetValues(item);
             this.context.Entry<T>(exist).State = EntityState.Modified;
-            this.context.SaveChanges();
+          await  this.context.SaveChangesAsync();
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
             var user = this.context.Set<T>().Find(id);
             if (user != null)
             {
                 this.context.Set<T>().Remove(user);
-                this.context.SaveChanges();
+                await this.context.SaveChangesAsync();
             }
         }
     }

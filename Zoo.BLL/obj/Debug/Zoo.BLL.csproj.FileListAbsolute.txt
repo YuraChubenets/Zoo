@@ -5,6 +5,6 @@ D:\Zoo\Zoo.BLL\bin\Debug\EntityFramework.dll
 D:\Zoo\Zoo.BLL\bin\Debug\EntityFramework.SqlServer.dll
 D:\Zoo\Zoo.BLL\bin\Debug\EntityFramework.xml
 D:\Zoo\Zoo.BLL\bin\Debug\EntityFramework.SqlServer.xml
-D:\Zoo\Zoo.BLL\obj\Debug\Zoo.BLL.csprojResolveAssemblyReference.cache
 D:\Zoo\Zoo.BLL\obj\Debug\Zoo.BLL.dll
 D:\Zoo\Zoo.BLL\obj\Debug\Zoo.BLL.pdb
+D:\Zoo\Zoo.BLL\obj\Debug\Zoo.BLL.csprojResolveAssemblyReference.cache
