@@ -15,7 +15,6 @@ using System.Threading.Tasks;
 namespace Zoo.WebUI.Controllers
 {
     [Authorize(Roles = "Администратор, Руководитель, Исполнитель")]
-    [PageTimeAttribute]
     public class AnimalController : Controller
     {
         // GET: /Animal/
